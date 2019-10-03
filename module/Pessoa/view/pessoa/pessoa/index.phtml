@@ -1,0 +1,27 @@
+<?php
+
+$title = 'Listagem de Pessoas';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+    <a href="<?= $this->url('pessoa', ['action' => 'add']) ?>">Nova</a>
+</p>
+
+<table class="table table-striped">
+<tr>
+    <th>Código</th>
+    <th>Nome</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($pessoas as $pessoa) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($pessoa->id) ?></td>
+        <td><?= $this->escapeHtml($pessoa->nome) ?></td>
+        <td>
+            <a href="<?= $this->url('pessoa', ['action' => 'edit', 'id' => $pessoa->id]) ?>">Edit</a>
+            <a href="<?= $this->url('pessoa', ['action' => 'delete', 'id' => $pessoa->id]) ?>">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
