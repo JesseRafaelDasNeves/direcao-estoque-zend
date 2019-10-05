@@ -19,7 +19,9 @@
         "zendframework/zend-db": "^2.8.1",
         "zendframework/zend-json": "^3.0",
         "zendframework/zend-session": "^2.7.1",
-        "zendframework/zend-servicemanager-di": "^1.0"
+        "zendframework/zend-servicemanager-di": "^1.0",
+        "zendframework/zend-form": "^2.14",
+        "zendframework/zend-i18n": "^2.9"
     },
     "autoload": {
         "psr-4": {

@@ -5,22 +5,26 @@ $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
 <p>
-    <a href="<?= $this->url('pessoa', ['action' => 'add']) ?>">Nova</a>
+    <a class="btn-sm btn-primary" href="<?= $this->url('pessoa', ['action' => 'add']) ?>">Incluir</a>
 </p>
 
 <table class="table table-striped">
-<tr>
-    <th>Código</th>
-    <th>Nome</th>
-    <th>&nbsp;</th>
-</tr>
+    <thead>
+        <tr>
+            <th scope="col" style="width: 100px;">Código</th>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF/CNPJ</th>
+            <th scope="col" style="width: 150px">&nbsp;</th>
+        </tr>
+    </thead>
 <?php foreach ($pessoas as $pessoa) : ?>
     <tr>
         <td><?= $this->escapeHtml($pessoa->id) ?></td>
         <td><?= $this->escapeHtml($pessoa->nome) ?></td>
+        <td><?= $this->escapeHtml($pessoa->cpfcnpj) ?></td>
         <td>
-            <a href="<?= $this->url('pessoa', ['action' => 'edit', 'id' => $pessoa->id]) ?>">Edit</a>
-            <a href="<?= $this->url('pessoa', ['action' => 'delete', 'id' => $pessoa->id]) ?>">Delete</a>
+            <a class="btn-sm btn-primary" href="<?= $this->url('pessoa', ['action' => 'edit', 'id' => $pessoa->id]) ?>">Alterar</a>
+            <a class="btn-sm btn-danger" href="<?= $this->url('pessoa', ['action' => 'delete', 'id' => $pessoa->id]) ?>">Excluir</a>
         </td>
     </tr>
 <?php endforeach; ?>

@@ -14,6 +14,8 @@ return [
     'Zend\Router',
     'Zend\Validator',
     'Zend\Db',
+    'Zend\Form',
+    'Zend\I18n',
     'Application',
     'Pessoa'
 ];

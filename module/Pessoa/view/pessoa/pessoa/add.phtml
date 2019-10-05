@@ -1,1 +1,17 @@
+<?php
 
+$title = 'Adicionar nova pessoa';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+/* @var $form \Pessoa\Form\PessoaForm */
+$form->setAttribute('action', $this->url('pessoa', ['action' => 'add']));
+$form->prepare();
+
+echo $this->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('nome'));
+echo $this->formRow($form->get('cpfcnpj'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
