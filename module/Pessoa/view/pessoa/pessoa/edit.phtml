@@ -1,1 +1,61 @@
-<h1>Teste Edit</h1>
+<?php
+
+$title = 'Editar pessoa';
+$this->headTitle($title);
+?>
+<h2><?= $this->escapeHtml($title) ?></h2>
+<?php
+/* @var $form \Pessoa\Form\PessoaForm */
+//$form->setAttribute('action', $this->url('pessoa', ['action' => 'edit']));
+$form->setAttribute('action', $this->url('pessoa', [
+    'action' => 'edit',
+    'id'     => $id,
+]));
+$form->prepare();
+
+//$id      = $form->get('id');
+$nome    = $form->get('nome');
+$tipo    = $form->get('tipo');
+$cpfcnpj = $form->get('cpfcnpj');
+$submit  = $form->get('submit');
+
+echo $this->form()->openTag($form);
+
+?>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $tipo->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($tipo) ?>
+    </div>
+    <?= $this->formElementErrors()->render($tipo, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $nome->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($nome) ?>
+    </div>
+    <?= $this->formElementErrors()->render($nome, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $cpfcnpj->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($cpfcnpj) ?>
+    </div>
+    <?= $this->formElementErrors()->render($cpfcnpj, ['class' => 'help-block']) ?>
+</div>
+
+<div class="btn-group-sm">
+
+<?php
+echo $this->formSubmit($submit);
+?>
+    <a href="<?= $this->url('pessoa', ['action' => 'index']) ?>" class="btn btn-sm btn-warning">Cancelar</a>
+
+</div>
+
+<?php
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();

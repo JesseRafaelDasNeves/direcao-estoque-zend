@@ -1,1 +1,65 @@
-<h1>Teste Delete</h1>
+<?php
+
+$title = 'Excluir pessoa';
+$this->headTitle($title);
+?>
+<h2><?= $this->escapeHtml($title) ?></h2>
+<?php
+/* @var $form \Pessoa\Form\PessoaForm */
+$form->setAttribute('action', $this->url('pessoa', ['action' => 'delete', 'id' => $id]));
+$form->prepare();
+
+//$id      = $form->get('id');
+$nome    = $form->get('nome');
+$nome->setAttribute('readonly', 'true');
+
+$tipo    = $form->get('tipo');
+$tipo->setAttribute('readonly', 'true');
+$tipo->setAttribute('disabled', 'true');
+
+$cpfcnpj = $form->get('cpfcnpj');
+$cpfcnpj->setAttribute('readonly', 'true');
+
+$submit  = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-sm btn-danger');
+
+echo $this->form()->openTag($form);
+
+?>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $tipo->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($tipo) ?>
+    </div>
+    <?= $this->formElementErrors()->render($tipo, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $nome->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($nome) ?>
+    </div>
+    <?= $this->formElementErrors()->render($nome, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $cpfcnpj->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($cpfcnpj) ?>
+    </div>
+    <?= $this->formElementErrors()->render($cpfcnpj, ['class' => 'help-block']) ?>
+</div>
+
+<div class="btn-group-sm">
+
+<?php
+echo $this->formSubmit($submit);
+?>
+    <a href="<?= $this->url('pessoa', ['action' => 'index']) ?>" class="btn btn-sm btn-warning">Cancelar</a>
+
+</div>
+
+<?php
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();

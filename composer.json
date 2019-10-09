@@ -21,7 +21,8 @@
         "zendframework/zend-session": "^2.7.1",
         "zendframework/zend-servicemanager-di": "^1.0",
         "zendframework/zend-form": "^2.14",
-        "zendframework/zend-i18n": "^2.9"
+        "zendframework/zend-i18n": "^2.9",
+        "zendframework/zend-mvc-i18n": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -50,5 +51,8 @@
     "require-dev": {
         "zendframework/zend-developer-tools": "^1.1.0",
         "zendframework/zend-test": "^3.0.1"
+    },
+    "config": {
+        "process-timeout": 0
     }
 }
