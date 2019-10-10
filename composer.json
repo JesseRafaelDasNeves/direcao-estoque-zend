@@ -54,5 +54,6 @@
     },
     "config": {
         "process-timeout": 0
-    }
+    },
+    "ext-intl": "*"
 }
