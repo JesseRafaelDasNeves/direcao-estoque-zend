@@ -36,7 +36,7 @@ class PessoaController extends AbstractActionController {
         }
 
         $pessoa = new Pessoa();
-        //$form->setInputFilter($pessoa->getInputFilter());
+        $form->setInputFilter($pessoa->getInputFilter());
         $form->setData($request->getPost());
 
         if (!$form->isValid()) {
@@ -75,7 +75,7 @@ class PessoaController extends AbstractActionController {
             return $viewData;
         }
 
-        //$form->setInputFilter($pessoa->getInputFilter());
+        $form->setInputFilter($pessoa->getInputFilter());
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {

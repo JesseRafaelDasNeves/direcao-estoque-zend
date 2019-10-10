@@ -11,13 +11,15 @@
  * file.
  */
 
+$dbconfGlobal = parse_url(getenv("DATABASE_URL"));
+
 return [
     'db' => [
         'driver'   => 'pdo_pgsql',
-        'database' => 'direcao-estoque',
-        'username' => 'postgres',
-        'password' => 'jesse',
-        'hostname' => '127.0.0.1',
-        'port'     => '5432',
+        'database' => ltrim($dbconfGlobal["path"], "/"),
+        'username' => isset($dbconfGlobal['user']) ? $dbconfGlobal['user'] : null,
+        'password' => isset($dbconfGlobal['pass']) ? $dbconfGlobal['pass'] : null,
+        'hostname' => isset($dbconfGlobal['host']) ? $dbconfGlobal['host'] : null,
+        'port'     => isset($dbconfGlobal['port']) ? $dbconfGlobal['port'] : null,
     ],
 ];
