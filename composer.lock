@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ee775d79b62a6476abc6d3f2201255b",
+    "content-hash": "d8f0d666183bcbbbfda78ccc49401025",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -88,16 +88,16 @@
         },
         {
             "name": "zendframework/zend-code",
-            "version": "3.3.2",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-code.git",
-                "reference": "936fa7ad4d53897ea3e3eb41b5b760828246a20b"
+                "reference": "46feaeecea14161734b56c1ace74f28cb329f194"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-code/zipball/936fa7ad4d53897ea3e3eb41b5b760828246a20b",
-                "reference": "936fa7ad4d53897ea3e3eb41b5b760828246a20b",
+                "url": "https://api.github.com/repos/zendframework/zend-code/zipball/46feaeecea14161734b56c1ace74f28cb329f194",
+                "reference": "46feaeecea14161734b56c1ace74f28cb329f194",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
             "require-dev": {
                 "doctrine/annotations": "^1.0",
                 "ext-phar": "*",
-                "phpunit/phpunit": "^7.5.15",
+                "phpunit/phpunit": "^7.5.16 || ^8.4",
                 "zendframework/zend-coding-standard": "^1.0",
                 "zendframework/zend-stdlib": "^2.7 || ^3.0"
             },
@@ -118,8 +118,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3.x-dev",
-                    "dev-develop": "3.4.x-dev"
+                    "dev-master": "3.4.x-dev",
+                    "dev-develop": "3.5.x-dev"
                 }
             },
             "autoload": {
@@ -137,7 +137,7 @@
                 "code",
                 "zf"
             ],
-            "time": "2019-08-31T14:14:34+00:00"
+            "time": "2019-10-05T23:18:22+00:00"
         },
         {
             "name": "zendframework/zend-component-installer",
@@ -842,16 +842,16 @@
         },
         {
             "name": "zendframework/zend-json",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-json.git",
-                "reference": "21c6027f3c4a5177cbef8ed08d1037b17188a0d8"
+                "reference": "e9ddb1192d93fe7fff846ac895249c39db75132b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-json/zipball/21c6027f3c4a5177cbef8ed08d1037b17188a0d8",
-                "reference": "21c6027f3c4a5177cbef8ed08d1037b17188a0d8",
+                "url": "https://api.github.com/repos/zendframework/zend-json/zipball/e9ddb1192d93fe7fff846ac895249c39db75132b",
+                "reference": "e9ddb1192d93fe7fff846ac895249c39db75132b",
                 "shasum": ""
             },
             "require": {
@@ -888,7 +888,7 @@
                 "json",
                 "zf"
             ],
-            "time": "2019-06-18T10:54:52+00:00"
+            "time": "2019-10-09T13:56:13+00:00"
         },
         {
             "name": "zendframework/zend-loader",
@@ -1431,16 +1431,16 @@
         },
         {
             "name": "zendframework/zend-uri",
-            "version": "2.7.0",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-uri.git",
-                "reference": "b2785cd38fe379a784645449db86f21b7739b1ee"
+                "reference": "bfc4a5b9a309711e968d7c72afae4ac50c650083"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-uri/zipball/b2785cd38fe379a784645449db86f21b7739b1ee",
-                "reference": "b2785cd38fe379a784645449db86f21b7739b1ee",
+                "url": "https://api.github.com/repos/zendframework/zend-uri/zipball/bfc4a5b9a309711e968d7c72afae4ac50c650083",
+                "reference": "bfc4a5b9a309711e968d7c72afae4ac50c650083",
                 "shasum": ""
             },
             "require": {
@@ -1474,7 +1474,7 @@
                 "uri",
                 "zf"
             ],
-            "time": "2019-02-27T21:39:04+00:00"
+            "time": "2019-10-07T13:35:33+00:00"
         },
         {
             "name": "zendframework/zend-validator",
@@ -2360,16 +2360,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.4.0",
+            "version": "8.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "57e5e77b62086033528ee1f4063ae03035f57894"
+                "reference": "366a4a0f2b971fd43b7c351d621e8dd7d7131869"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/57e5e77b62086033528ee1f4063ae03035f57894",
-                "reference": "57e5e77b62086033528ee1f4063ae03035f57894",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/366a4a0f2b971fd43b7c351d621e8dd7d7131869",
+                "reference": "366a4a0f2b971fd43b7c351d621e8dd7d7131869",
                 "shasum": ""
             },
             "require": {
@@ -2439,7 +2439,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-10-04T03:12:25+00:00"
+            "time": "2019-10-07T12:57:41+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -3508,7 +3508,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^5.6 || ^7.0"
+        "php": "^5.6 || ^7.0",
+        "ext-intl": "*"
     },
     "platform-dev": []
 }
