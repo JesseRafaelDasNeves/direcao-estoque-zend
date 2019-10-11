@@ -16,7 +16,7 @@ $dbconfGlobal = parse_url(getenv("DATABASE_URL"));
 return [
     'db' => [
         'driver'   => 'pdo_pgsql',
-        'database' => ltrim($dbconfGlobal["path"], "/"),
+        'database' => isset($dbconfGlobal['user']) ? ltrim($dbconfGlobal["path"], "/") : null,
         'username' => isset($dbconfGlobal['user']) ? $dbconfGlobal['user'] : null,
         'password' => isset($dbconfGlobal['pass']) ? $dbconfGlobal['pass'] : null,
         'hostname' => isset($dbconfGlobal['host']) ? $dbconfGlobal['host'] : null,
