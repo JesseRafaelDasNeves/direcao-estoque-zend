@@ -16,10 +16,13 @@ $dbconfGlobal = parse_url(getenv("DATABASE_URL"));
 return [
     'db' => [
         'driver'   => 'pdo_pgsql',
-        'database' => isset($dbconfGlobal['user']) ? ltrim($dbconfGlobal["path"], "/") : null,
+        'database' => isset($dbconfGlobal['path']) ? ltrim($dbconfGlobal["path"], "/") : null,
         'username' => isset($dbconfGlobal['user']) ? $dbconfGlobal['user'] : null,
         'password' => isset($dbconfGlobal['pass']) ? $dbconfGlobal['pass'] : null,
         'hostname' => isset($dbconfGlobal['host']) ? $dbconfGlobal['host'] : null,
         'port'     => isset($dbconfGlobal['port']) ? $dbconfGlobal['port'] : null,
+    ],
+    'view_manager' => [
+        'display_exceptions' => true,
     ],
 ];
