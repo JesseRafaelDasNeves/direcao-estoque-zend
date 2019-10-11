@@ -22,7 +22,8 @@
         "zendframework/zend-servicemanager-di": "^1.0",
         "zendframework/zend-form": "^2.14",
         "zendframework/zend-i18n": "^2.9",
-        "zendframework/zend-mvc-i18n": "^1.1"
+        "zendframework/zend-mvc-i18n": "^1.1",
+        "ext-intl": "*"
     },
     "autoload": {
         "psr-4": {
@@ -54,6 +55,5 @@
     },
     "config": {
         "process-timeout": 0
-    },
-    "ext-intl": "*"
+    }
 }
