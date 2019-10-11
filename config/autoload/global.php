@@ -22,7 +22,4 @@ return [
         'hostname' => isset($dbconfGlobal['host']) ? $dbconfGlobal['host'] : null,
         'port'     => isset($dbconfGlobal['port']) ? $dbconfGlobal['port'] : null,
     ],
-    'view_manager' => [
-        'display_exceptions' => true,
-    ],
 ];
