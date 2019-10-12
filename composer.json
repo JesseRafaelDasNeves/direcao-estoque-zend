@@ -18,17 +18,19 @@
         "zfcampus/zf-development-mode": "^3.0",
         "zendframework/zend-db": "^2.8.1",
         "zendframework/zend-json": "^3.0",
-        "zendframework/zend-session": "^2.7.1",
+        "zendframework/zend-session": "^2.9",
         "zendframework/zend-servicemanager-di": "^1.0",
         "zendframework/zend-form": "^2.14",
         "zendframework/zend-i18n": "^2.9",
         "zendframework/zend-mvc-i18n": "^1.1",
+        "zendframework/zend-authentication": "^2.7",
         "intl": "*"
     },
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/",
-            "Pessoa\\"     : "module/Pessoa/src/"
+            "Pessoa\\"     : "module/Pessoa/src/",
+            "Auth\\"       : "module/Auth/src/"
         }
     },
     "autoload-dev": {
