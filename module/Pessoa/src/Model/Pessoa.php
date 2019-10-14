@@ -33,8 +33,7 @@ class Pessoa implements InputFilterAwareInterface {
         $this->cpfcnpj = !empty($data['cpfcnpj']) ? $data['cpfcnpj'] : null;
     }
 
-    public function getArrayCopy()
-    {
+    public function getArrayCopy() {
         return [
             'id'      => $this->id,
             'tipo'    => $this->tipo,

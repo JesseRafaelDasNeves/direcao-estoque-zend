@@ -6,11 +6,11 @@ use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
-    'controllers' => [
+    /*'controllers' => [
         'factories' => [
             Controller\AuthController::class => InvokableFactory::class,
         ],
-    ],
+    ],*/
 
     'router' => [
         'routes' => [
@@ -24,7 +24,7 @@ return [
                     ],
                     'defaults' => [
                         'controller' => Controller\AuthController::class,
-                        'action'     => 'index',
+                        'action'     => 'login',
                     ],
                 ],
             ],

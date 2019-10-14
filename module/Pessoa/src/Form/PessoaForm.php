@@ -33,7 +33,8 @@ class PessoaForm extends Form {
                 'label' => 'Nome:',
             ],
             'attributes' => [
-                'class' => 'form-control form-control-sm',
+                'class'     => 'form-control form-control-sm',
+                'autofocus' => 'true',
             ],
         ]);
         $this->add([
