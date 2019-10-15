@@ -28,6 +28,20 @@ return [
                     ],
                 ],
             ],
+            'logout' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/logout[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'logout',
+                    ],
+                ],
+            ],
         ],
     ],
 

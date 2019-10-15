@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Pessoa\Model\PessoaTable;
 use Pessoa\Model\Pessoa;
 use Pessoa\Form\PessoaForm;
+use Auth\Model\Auth;
 
 /**
  * Controlador da Pessoa
@@ -22,10 +23,18 @@ class PessoaController extends AbstractActionController {
     }
 
     public function indexAction() {
+        if(!Auth::check()) {
+            return $this->redirect()->toRoute('auth');
+        }
+
         return new ViewModel(['pessoas' => $this->table->fetchAll()]);
     }
 
     public function addAction() {
+        if(!Auth::check()) {
+            return $this->redirect()->toRoute('auth');
+        }
+
         $form = new PessoaForm();
         $form->get('submit')->setValue('Adicionar');
 
@@ -49,6 +58,10 @@ class PessoaController extends AbstractActionController {
     }
 
     public function editAction() {
+        if(!Auth::check()) {
+            return $this->redirect()->toRoute('auth');
+        }
+
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if (0 === $id) {
@@ -89,6 +102,10 @@ class PessoaController extends AbstractActionController {
     }
 
     public function deleteAction() {
+        if(!Auth::check()) {
+            return $this->redirect()->toRoute('auth');
+        }
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('pessoa');

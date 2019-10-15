@@ -66,4 +66,8 @@ class UserTable {
         $this->tableGateway->delete(['id' => (int) $id]);
     }
 
+    public function getAdapter() {
+        return $this->tableGateway->getAdapter();
+    }
+
 }
