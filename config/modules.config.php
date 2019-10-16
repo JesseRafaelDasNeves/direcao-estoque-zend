@@ -22,4 +22,5 @@ return [
     'Auth',
     'Pessoa',
     'Fornecedor',
+    'Produto',
 ];

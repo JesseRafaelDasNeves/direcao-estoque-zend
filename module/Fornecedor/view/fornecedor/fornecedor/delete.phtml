@@ -24,6 +24,7 @@ $idPessoa->setAttribute('readonly', 'true');
 $idPessoa->setAttribute('disabled', 'true');
 
 $submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-sm btn-danger');
 
 echo $this->form()->openTag($form);
 
