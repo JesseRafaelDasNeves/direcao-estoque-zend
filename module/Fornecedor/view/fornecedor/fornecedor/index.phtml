@@ -1,0 +1,35 @@
+<?php
+
+$title = 'Listagem de Fornecedores';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+    <a class="btn-sm btn-primary" href="<?= $this->url('fornecedor', ['action' => 'add']) ?>">Incluir</a>
+</p>
+
+<div class="table-responsive-sm">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 100px;">Código</th>
+                <th scope="col" style="width: 150px;">Tipo</th>
+                <th scope="col" style="width: 200px;">Inscrição Estadual</th>
+                <th scope="col">Pessoa</th>
+                <th scope="col" style="width: 150px">&nbsp;</th>
+            </tr>
+        </thead>
+    <?php foreach ($fornecedores as /* @var $fornecedor Fornecedor\Model\Fornecedor */ $fornecedor) : ?>
+        <tr>
+            <td><?= $this->escapeHtml($fornecedor->id) ?></td>
+            <td><?= $this->escapeHtml($fornecedor->nomeTipo()) ?></td>
+            <td><?= $this->escapeHtml($fornecedor->inscricaoestadual) ?></td>
+            <td><?= $this->escapeHtml($fornecedor->pessoa()->nome) ?></td>
+            <td>
+                <a class="btn-sm btn-primary" href="<?= $this->url('fornecedor', ['action' => 'edit', 'id' => $fornecedor->id]) ?>">Alterar</a>
+                <a class="btn-sm btn-danger" href="<?= $this->url('fornecedor', ['action' => 'delete', 'id' => $fornecedor->id]) ?>">Excluir</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+</div>

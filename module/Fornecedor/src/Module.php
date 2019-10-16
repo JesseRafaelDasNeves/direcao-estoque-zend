@@ -1,6 +1,6 @@
 <?php
 
-namespace Pessoa;
+namespace Fornecedor;
 
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
@@ -10,7 +10,7 @@ use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 
 /**
- * Configurações do modulo
+ * Description of Module
  *
  * @author Jessé Rafael das Neves
  */
@@ -23,13 +23,15 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
     public function getServiceConfig() {
         return [
             'factories' => [
-                Model\PessoaTable::class => function($container) {
-                    $tableGateway = $container->get(Model\PessoaTableGateway::class);
-                    return new Model\PessoaTable($tableGateway);
+                Model\FornecedorTable::class => function($container) {
+                    $tableGateway = $container->get(Model\FornecedorTableGateway::class);
+                    return new Model\FornecedorTable($tableGateway);
                 },
-                Model\PessoaTableGateway::class => function ($container) {
+                Model\FornecedorTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
-                    return Module::newTableGatewayPessoa($dbAdapter);
+                    $resultSetPrototype = new Model\FornecedorResultSet($dbAdapter);
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Fornecedor());
+                    return new TableGateway('fornecedores', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];
@@ -38,19 +40,13 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
     public function getControllerConfig() {
         return [
             'factories' => [
-                Controller\PessoaController::class => function($container) {
-                    return new Controller\PessoaController(
-                        $container->get(Model\PessoaTable::class)
+                Controller\FornecedorController::class => function($container) {
+                    return new Controller\FornecedorController(
+                        $container->get(Model\FornecedorTable::class)
                     );
                 },
             ],
         ];
-    }
-
-    public static function newTableGatewayPessoa(AdapterInterface $oDbAdapter) {
-        $resultSetPrototype = new ResultSet();
-        $resultSetPrototype->setArrayObjectPrototype(new Model\Pessoa());
-        return new TableGateway('pessoas', $oDbAdapter, null, $resultSetPrototype);
     }
 
 }

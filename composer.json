@@ -30,8 +30,9 @@
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/",
+            "Auth\\"       : "module/Auth/src/",
             "Pessoa\\"     : "module/Pessoa/src/",
-            "Auth\\"       : "module/Auth/src/"
+            "Fornecedor\\" : "module/Fornecedor/src/"
         }
     },
     "autoload-dev": {

@@ -64,7 +64,8 @@ class AuthController extends AbstractActionController {
             return $this->redirect()->toRoute('home');
         }
 
-        return $this->redirect()->toRoute('auth', ['errors' => $result->getMessages()]);
+        //Usuário não válido
+        return ['form' => $form, 'errors' => $result->getMessages()];
     }
 
     public function logoutAction() {

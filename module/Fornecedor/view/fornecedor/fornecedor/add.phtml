@@ -1,0 +1,56 @@
+<?php
+
+$title = 'Adicionar novo fornecedor';
+$this->headTitle($title);
+?>
+<h2><?= $this->escapeHtml($title) ?></h2>
+<?php
+/* @var $form \Pessoa\Form\PessoaForm */
+$form->setAttribute('action', $this->url('fornecedor', ['action' => 'add']));
+$form->prepare();
+
+$idForm      = $form->get('id');
+$tipo        = $form->get('tipo');
+$instricaoUf = $form->get('inscricaoestadual');
+$idPessoa    = $form->get('idpessoa');
+$submit      = $form->get('submit');
+
+echo $this->form()->openTag($form);
+
+?>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $idPessoa->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($idPessoa) ?>
+    </div>
+    <?= $this->formElementErrors()->render($idPessoa, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $tipo->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($tipo) ?>
+    </div>
+    <?= $this->formElementErrors()->render($tipo, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $instricaoUf->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($instricaoUf) ?>
+    </div>
+    <?= $this->formElementErrors()->render($instricaoUf, ['class' => 'help-block']) ?>
+</div>
+
+<div class="btn-group-sm">
+
+<?php
+echo $this->formSubmit($submit);
+?>
+    <a href="<?= $this->url('fornecedor', ['action' => 'index']) ?>" class="btn btn-sm btn-warning">Cancelar</a>
+
+</div>
+
+<?php
+echo $this->form()->closeTag();

@@ -9,11 +9,14 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Auth\Model\Auth;
 
-class IndexController extends AbstractActionController
-{
-    public function indexAction()
-    {
+class IndexController extends AbstractActionController {
+
+    public function indexAction() {
+        if(!Auth::check()) {
+            return $this->redirect()->toRoute('auth');
+        }
         return new ViewModel();
     }
 }

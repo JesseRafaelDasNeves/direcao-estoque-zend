@@ -1,14 +1,15 @@
 <?php
 
-namespace Pessoa\Model;
+namespace Fornecedor\Model;
 
-use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
 /**
+ * Description of FornecedorTable
+ *
  * @author Jessé Rafael das Neves
  */
-class PessoaTable {
+class FornecedorTable {
 
     private $tableGateway;
 
@@ -16,14 +17,11 @@ class PessoaTable {
         $this->tableGateway = $tableGateway;
     }
 
-    /**
-     * @return Pessoa
-     */
     public function fetchAll() {
         return $this->tableGateway->select();
     }
 
-    public function getPessoa($id) {
+    public function getFornecedor($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(['id' => $id]);
         $row = $rowset->current();
@@ -37,14 +35,14 @@ class PessoaTable {
         return $row;
     }
 
-    public function savePessoa(Pessoa $pessoa) {
+    public function saveFornecedor(Fornecedor $fornecedor) {
         $data = [
-            'nome'    => $pessoa->nome,
-            'cpfcnpj' => $pessoa->cpfcnpj,
-            'tipo'    => $pessoa->tipo,
+            'tipo'              => $fornecedor->tipo,
+            'inscricaoestadual' => $fornecedor->inscricaoestadual,
+            'idpessoa'          => $fornecedor->idpessoa,
         ];
 
-        $id = (int) $pessoa->id;
+        $id = (int) $fornecedor->id;
 
         if ($id === 0) {
             $this->tableGateway->insert($data);
@@ -52,7 +50,7 @@ class PessoaTable {
         }
 
         try {
-            $this->getPessoa($id);
+            $this->getFornecedor($id);
         } catch (RuntimeException $e) {
             throw new RuntimeException(sprintf(
                 'Cannot update album with identifier %d; does not exist',
@@ -63,8 +61,12 @@ class PessoaTable {
         $this->tableGateway->update($data, ['id' => $id]);
     }
 
-    public function deletePessoa($id) {
+    public function deleteFornecedor($id) {
         $this->tableGateway->delete(['id' => (int) $id]);
+    }
+
+    public function getAdapter() {
+        return $this->tableGateway->getAdapter();
     }
 
 }

@@ -6,7 +6,6 @@ $this->headTitle($title);
 <h2><?= $this->escapeHtml($title) ?></h2>
 <?php
 /* @var $form \Pessoa\Form\PessoaForm */
-//$form->setAttribute('action', $this->url('pessoa', ['action' => 'edit']));
 $form->setAttribute('action', $this->url('pessoa', [
     'action' => 'edit',
     'id'     => $id,

@@ -8,24 +8,26 @@ $this->headTitle($title);
     <a class="btn-sm btn-primary" href="<?= $this->url('pessoa', ['action' => 'add']) ?>">Incluir</a>
 </p>
 
-<table class="table table-striped">
-    <thead>
+<div class="table-responsive-sm">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 100px;">Código</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF/CNPJ</th>
+                <th scope="col" style="width: 150px">&nbsp;</th>
+            </tr>
+        </thead>
+    <?php foreach ($pessoas as $pessoa) : ?>
         <tr>
-            <th scope="col" style="width: 100px;">Código</th>
-            <th scope="col">Nome</th>
-            <th scope="col">CPF/CNPJ</th>
-            <th scope="col" style="width: 150px">&nbsp;</th>
+            <td><?= $this->escapeHtml($pessoa->id) ?></td>
+            <td><?= $this->escapeHtml($pessoa->nome) ?></td>
+            <td><?= $this->escapeHtml($pessoa->cpfcnpj) ?></td>
+            <td>
+                <a class="btn-sm btn-primary" href="<?= $this->url('pessoa', ['action' => 'edit', 'id' => $pessoa->id]) ?>">Alterar</a>
+                <a class="btn-sm btn-danger" href="<?= $this->url('pessoa', ['action' => 'delete', 'id' => $pessoa->id]) ?>">Excluir</a>
+            </td>
         </tr>
-    </thead>
-<?php foreach ($pessoas as $pessoa) : ?>
-    <tr>
-        <td><?= $this->escapeHtml($pessoa->id) ?></td>
-        <td><?= $this->escapeHtml($pessoa->nome) ?></td>
-        <td><?= $this->escapeHtml($pessoa->cpfcnpj) ?></td>
-        <td>
-            <a class="btn-sm btn-primary" href="<?= $this->url('pessoa', ['action' => 'edit', 'id' => $pessoa->id]) ?>">Alterar</a>
-            <a class="btn-sm btn-danger" href="<?= $this->url('pessoa', ['action' => 'delete', 'id' => $pessoa->id]) ?>">Excluir</a>
-        </td>
-    </tr>
-<?php endforeach; ?>
-</table>
+    <?php endforeach; ?>
+    </table>
+</div>

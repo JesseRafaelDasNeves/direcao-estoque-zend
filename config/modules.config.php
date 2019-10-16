@@ -20,5 +20,6 @@ return [
     'Zend\Form',
     'Application',
     'Auth',
-    'Pessoa'
+    'Pessoa',
+    'Fornecedor',
 ];

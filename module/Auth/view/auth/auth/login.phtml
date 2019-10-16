@@ -12,6 +12,20 @@ $submit   = $form->get('submit');
 
 ?>
 
+<?php if(isset($errors) && count($errors) > 0) { ?>
+
+<div class="alert alert-danger">
+    <ul>
+        <?php foreach($errors as $error) { ?>
+
+        <li><?= $error ?></li>
+
+        <?php } ?>
+    </ul>
+</div>
+
+<?php } ?>
+
 <div class="container">
     <div class="row" style="justify-content: center!important; display:flex; flex-wrap:wrap;">
         <div class="col-md-4">
@@ -20,9 +34,11 @@ $submit   = $form->get('submit');
 
                 <label for="inputEmail" class="sr-only">Endereço de Email</label>
                 <?= $this->formElement($email) ?>
+                <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
 
                 <label for="inputPassword" class="sr-only">Password</label>
                 <?= $this->formElement($password) ?>
+                <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
 
                 <div class="checkbox mb-3">
                     <label>
