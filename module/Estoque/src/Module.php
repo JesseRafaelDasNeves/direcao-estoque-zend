@@ -31,6 +31,14 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
                     $dbAdapter = $container->get(AdapterInterface::class);
                     return Module::newTableGatewayEntrada($dbAdapter);
                 },
+                Model\ItemEntradaTable::class => function($container) {
+                    $tableGateway = $container->get(Model\ItemEntradaTableGateway::class);
+                    return new Model\ItemEntradaTable($tableGateway);
+                },
+                Model\ItemEntradaTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    return Module::newTableGatewayItemEntrada($dbAdapter);
+                },
             ],
         ];
     }
@@ -43,6 +51,11 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
                         $container->get(Model\EntradaTable::class)
                     );
                 },
+                Controller\ItemEntradaController::class => function($container) {
+                    return new Controller\ItemEntradaController(
+                        $container->get(Model\ItemEntradaTable::class)
+                    );
+                },
             ],
         ];
     }
@@ -51,6 +64,12 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         $resultSetPrototype = new Model\EntradaResultSet($dbAdapter);
         $resultSetPrototype->setArrayObjectPrototype(new Model\Entrada());
         return new TableGateway('entradas', $dbAdapter, null, $resultSetPrototype);
+    }
+
+    public static function newTableGatewayItemEntrada(AdapterInterface $dbAdapter) {
+        $resultSetPrototype = new Model\ItemEntradaResultSet($dbAdapter);
+        $resultSetPrototype->setArrayObjectPrototype(new Model\ItemEntrada());
+        return new TableGateway('itensentrada', $dbAdapter, null, $resultSetPrototype);
     }
 
 }

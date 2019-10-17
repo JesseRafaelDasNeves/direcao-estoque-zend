@@ -29,9 +29,7 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
                 },
                 Model\ProdutoTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
-                    $resultSetPrototype = new ResultSet($dbAdapter);
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Produto());
-                    return new TableGateway('produtos', $dbAdapter, null, $resultSetPrototype);
+                    return Module::newTableGatewayProduto($dbAdapter);
                 },
             ],
         ];
@@ -47,6 +45,12 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
                 },
             ],
         ];
+    }
+
+    public static function newTableGatewayProduto(AdapterInterface $dbAdapter) {
+        $resultSetPrototype = new ResultSet($dbAdapter);
+        $resultSetPrototype->setArrayObjectPrototype(new Model\Produto());
+        return new TableGateway('produtos', $dbAdapter, null, $resultSetPrototype);
     }
 
 }

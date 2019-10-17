@@ -1,0 +1,44 @@
+<?php
+
+$title = "Listagem de Itens da Entrada $idEntrada";
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+    <a class="btn-sm btn-primary" href="<?= $this->url('item-entrada', ['action' => 'add', 'identrada' => $idEntrada]) ?>">Incluir</a>
+    <a class="btn-sm btn-primary" href="<?= $this->url('entrada') ?>">Voltar</a>
+</p>
+
+<div class="table-responsive-sm">
+    <table class="table table-sm table-striped">
+        <thead>
+            <th scope="col" style="width: 100px;">Item</th>
+            <th scope="col">Nome</th>
+            <th scope="col" style="width: 100px; text-align: right">Quantidade</th>
+            <th scope="col" style="width: 100px; text-align: right">Vlr. Unitário</th>
+            <th scope="col" style="width: 100px; text-align: right">Vlt. Total</th>
+            <th scope="col" style="width: 50px;">Ações</th>
+        </thead>
+    <?php foreach ($itensEntrada as /* @var $itemEntrada Estoque\Model\ItemEntrada */ $itemEntrada) : ?>
+        <tr>
+            <td><?= $this->escapeHtml($itemEntrada->id) ?></td>
+            <td><?= $this->escapeHtml($itemEntrada->produto()->nome) ?></td>
+            <td style="text-align: right"><?= $this->escapeHtml(number_format($itemEntrada->quantidade, 2, ',', '.')) ?></td>
+            <td style="text-align: right"><?= $this->escapeHtml(number_format($itemEntrada->valorunitario, 2, ',', '.')) ?></td>
+            <td style="text-align: right"><?= $this->escapeHtml(number_format($itemEntrada->valortotal, 2, ',', '.')) ?></td>
+
+            <td style="text-align: right">
+                <div class="btn-group btn-group-vertical btn-group-sm" role="group">
+                    <button id="btnGroupAcoes" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupAcoes" style="padding: 0px; min-width:60px;">
+                        <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('item-entrada', ['action' => 'edit', 'identrada' => $itemEntrada->identrada, 'id' => $itemEntrada->id]) ?>">Alterar</a>
+                        <a class="btn-sm btn-danger" style="margin: 2px;" href="<?= $this->url('item-entrada', ['action' => 'delete', 'identrada' => $itemEntrada->identrada, 'id' => $itemEntrada->id]) ?>">Excluir</a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+</div>
