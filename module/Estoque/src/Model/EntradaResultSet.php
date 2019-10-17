@@ -24,6 +24,7 @@ class EntradaResultSet extends ResultSet {
     public function current() {
         $oEntrada =  parent::current();
         $this->loadFornecedor($oEntrada);
+        $this->loadSomaValorTotalItensByEntrada($oEntrada);
         return $oEntrada;
     }
 
@@ -31,6 +32,12 @@ class EntradaResultSet extends ResultSet {
         $oFornecedorTable = new FornecedorTable(\Fornecedor\Module::newTableGatewayFornecedor($this->DbAdapter));
         $oFornecedor      = $oFornecedorTable->getFornecedor($Entrada->idfornecedor);
         $Entrada->setFornecedor($oFornecedor);
+    }
+
+    private function loadSomaValorTotalItensByEntrada(Entrada $oEntrada) {
+        $itemEntradaTable = new \Estoque\Model\ItemEntradaTable(\Estoque\Module::newTableGatewayItemEntrada($this->DbAdapter, false));
+        $fValor = $itemEntradaTable->somaValorTotalByEntrada($oEntrada->id);
+        $oEntrada->setValorTotal($fValor);
     }
 
 }

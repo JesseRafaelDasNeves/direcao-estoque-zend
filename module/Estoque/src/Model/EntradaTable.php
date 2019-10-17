@@ -18,6 +18,10 @@ class EntradaTable {
     }
 
     public function fetchAll() {
+        /*$sql = new \Zend\Db\Sql\Sql($this->getAdapter(), $this->tableGateway->getTable());
+        $select = $sql->select();
+        $select->order(['id asc']);
+        return $sql->prepareStatementForSqlObject($select)->execute();*/
         return $this->tableGateway->select();
     }
 
@@ -69,6 +73,9 @@ class EntradaTable {
         $this->tableGateway->delete(['id' => (int) $id]);
     }
 
+    /**
+     * @return \Zend\Db\Adapter\AdapterInterface
+     */
     public function getAdapter() {
         return $this->tableGateway->getAdapter();
     }

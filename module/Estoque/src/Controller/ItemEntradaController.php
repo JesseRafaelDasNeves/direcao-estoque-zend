@@ -47,7 +47,9 @@ class ItemEntradaController extends AbstractActionController {
         }
 
         $idEntrada = (int) $this->params()->fromRoute('identrada', 0);
-        return new ViewModel(['idEntrada' => $idEntrada, 'itensEntrada' => $this->table->allByEntrada($idEntrada)]);
+        $oEntrada = $this->getEntradaById($idEntrada);
+
+        return new ViewModel(['entrada' => $oEntrada, 'idEntrada' => $idEntrada, 'itensEntrada' => $this->table->allByEntrada($idEntrada)]);
     }
 
     public function addAction() {
@@ -155,6 +157,12 @@ class ItemEntradaController extends AbstractActionController {
         $viewData = ['id' => $id, 'idEntrada' => $idEntrada,  'form' => $form];
 
         return $viewData;
+    }
+
+    private function getEntradaById(int $id) {
+        $entradaTable = new \Estoque\Model\EntradaTable(\Estoque\Module::newTableGatewayEntrada($this->table->getAdapter()));
+        $entrada      = $entradaTable->getEntrada($id);
+        return $entrada;
     }
 
 }

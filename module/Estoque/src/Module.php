@@ -66,10 +66,16 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         return new TableGateway('entradas', $dbAdapter, null, $resultSetPrototype);
     }
 
-    public static function newTableGatewayItemEntrada(AdapterInterface $dbAdapter) {
-        $resultSetPrototype = new Model\ItemEntradaResultSet($dbAdapter);
+    public static function newTableGatewayItemEntrada(AdapterInterface $dbAdapter, $carregaFilhos = true) {
+        $resultSetPrototype = $carregaFilhos ? new Model\ItemEntradaResultSet($dbAdapter) : new ResultSet();
         $resultSetPrototype->setArrayObjectPrototype(new Model\ItemEntrada());
         return new TableGateway('itensentrada', $dbAdapter, null, $resultSetPrototype);
+    }
+
+    public static function newTableGatewayEstoque(AdapterInterface $dbAdapter) {
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new Model\Estoque());
+        return new TableGateway('estoques', $dbAdapter, null, $resultSetPrototype);
     }
 
 }

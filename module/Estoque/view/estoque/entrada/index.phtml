@@ -30,7 +30,7 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($entrada->numero_nota) ?></td>
             <td><?= $this->escapeHtml($entrada->fornecedor()->pessoa()->nome) ?></td>
             <td><?= $this->escapeHtml($entrada->getDestricaoSituacao()) ?></td>
-            <td style="text-align: right"><?= $this->escapeHtml(number_format(0, 2, ',', '.')) ?></td>
+            <td style="text-align: right"><?= $this->escapeHtml(number_format($entrada->getValorTotal(), 2, ',', '.')) ?></td>
             <td style="text-align: right">
                 <div class="btn-group btn-group-vertical btn-group-sm" role="group">
                     <button id="btnGroupAcoes" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -39,6 +39,7 @@ $this->headTitle($title);
                         <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('entrada', ['action' => 'edit', 'id' => $entrada->id]) ?>">Alterar</a>
                         <a class="btn-sm btn-danger" style="margin: 2px;" href="<?= $this->url('entrada', ['action' => 'delete', 'id' => $entrada->id]) ?>">Excluir</a>
                         <a class="btn-sm btn-primary" style="margin: 2px; padding-left: 15px;padding-right: 15px" href="<?= $this->url('item-entrada', ['action' => 'index', 'identrada' => $entrada->id]) ?>">Itens</a>
+                        <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('entrada', ['action' => 'conclui', 'id' => $entrada->id]) ?>">Conclui</a>
                     </div>
                 </div>
 

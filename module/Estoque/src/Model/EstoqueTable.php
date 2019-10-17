@@ -5,11 +5,11 @@ namespace Estoque\Model;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
 /**
- * Description of ItemEntradaTable
+ * Description of EstoqueTable
  *
  * @author Jessé Rafael das Neves
  */
-class ItemEntradaTable {
+class EstoqueTable {
 
     private $tableGateway;
 
@@ -21,16 +21,12 @@ class ItemEntradaTable {
         return $this->tableGateway->select();
     }
 
-    public function allByEntrada($idEntrada) {
-        return $this->tableGateway->select(['identrada' => $idEntrada]);
-    }
-
-    public function getItemEntrada($id) {
+    public function getEstoque($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(['id' => $id]);
         $row = $rowset->current();
         if (! $row) {
-            throw new RuntimeException(sprintf(
+            throw new \Zend\Db\Exception\RuntimeException(sprintf(
                 'Could not find row with identifier %d',
                 $id
             ));
@@ -39,17 +35,19 @@ class ItemEntradaTable {
         return $row;
     }
 
-    public function saveItemEntrada(ItemEntrada $itemEntrada) {
+    public function firstEstoqueByProduto($idProduro) {
+        $rowset = $this->tableGateway->select(['idproduto' => $idProduro]);
+        $row = $rowset->current();
+        return $row;
+    }
+
+    public function saveEstoque(Estoque $estoque) {
         $data = [
-            'quantidade'    => $itemEntrada->quantidade,
-            'valorunitario' => $itemEntrada->valorunitario,
-            'valortotal'    => $itemEntrada->valortotal,
-            'identrada'     => $itemEntrada->identrada,
-            'idproduto'     => $itemEntrada->idproduto,
-            'idestoque'     => $itemEntrada->idestoque,
+            'quantidade' => $estoque->quantidade,
+            'idproduto'  => $estoque->idproduto,
         ];
 
-        $id = (int) $itemEntrada->id;
+        $id = (int) $estoque->id;
 
         if ($id === 0) {
             $this->tableGateway->insert($data);
@@ -57,7 +55,7 @@ class ItemEntradaTable {
         }
 
         try {
-            $this->getItemEntrada($id);
+            $this->getEstoque($id);
         } catch (RuntimeException $e) {
             throw new RuntimeException(sprintf(
                 'Cannot update album with identifier %d; does not exist',
@@ -68,21 +66,12 @@ class ItemEntradaTable {
         $this->tableGateway->update($data, ['id' => $id]);
     }
 
-    public function deleteItemEntrada($id) {
+    public function deleteEstoque($id) {
         $this->tableGateway->delete(['id' => (int) $id]);
     }
 
     public function getAdapter() {
         return $this->tableGateway->getAdapter();
-    }
-
-    public function somaValorTotalByEntrada($idEntrada) {
-        $fValorTotal = 0;
-        foreach ($this->allByEntrada($idEntrada) as $oItemEntrada) {
-            $fValorTotal = ($fValorTotal + $oItemEntrada->valortotal);
-        }
-
-        return $fValorTotal;
     }
 
 }

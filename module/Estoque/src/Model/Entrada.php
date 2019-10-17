@@ -33,6 +33,8 @@ class Entrada implements InputFilterAwareInterface {
     public $observacao;
     public $idfornecedor;
 
+    private $valorTotal;
+
     public function exchangeArray(Array $data) {
         $this->id           = !empty($data['id'])           ? $data['id']           : null;
         $this->data         = !empty($data['data'])         ? $data['data']         : null;
@@ -64,6 +66,14 @@ class Entrada implements InputFilterAwareInterface {
             $this->Fornecedor = new Fornecedor();
         }
         return $this->Fornecedor;
+    }
+
+    public function setValorTotal($valorTotal) {
+        $this->valorTotal = $valorTotal;
+    }
+
+    public function getValorTotal() {
+        return $this->valorTotal;
     }
 
     public static function getListaSituacao() {
@@ -145,6 +155,10 @@ class Entrada implements InputFilterAwareInterface {
             '%s does not allow injection of an alternate input filter',
             __CLASS__
         ));
+    }
+
+    public function isPermitidoManutencao() {
+        return $this->situacao == Entrada::SITUACAO_EM_ELABORACAO;
     }
 
 }

@@ -5,7 +5,10 @@ $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
 <p>
+    <?php if($entrada->situacao != Estoque\Model\Entrada::SITUACAO_CONCLUIDA) : ?>
     <a class="btn-sm btn-primary" href="<?= $this->url('item-entrada', ['action' => 'add', 'identrada' => $idEntrada]) ?>">Incluir</a>
+    <?php endif; ?>
+
     <a class="btn-sm btn-primary" href="<?= $this->url('entrada') ?>">Voltar</a>
 </p>
 
@@ -28,6 +31,8 @@ $this->headTitle($title);
             <td style="text-align: right"><?= $this->escapeHtml(number_format($itemEntrada->valortotal, 2, ',', '.')) ?></td>
 
             <td style="text-align: right">
+                <?php if($itemEntrada->entrada()->situacao != Estoque\Model\Entrada::SITUACAO_CONCLUIDA) : ?>
+
                 <div class="btn-group btn-group-vertical btn-group-sm" role="group">
                     <button id="btnGroupAcoes" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 
@@ -37,6 +42,7 @@ $this->headTitle($title);
                     </div>
                 </div>
 
+                <?php endif; ?>
             </td>
         </tr>
     <?php endforeach; ?>

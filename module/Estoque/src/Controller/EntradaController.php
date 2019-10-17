@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Estoque\Model\EntradaTable;
 use Estoque\Model\Entrada;
+use Estoque\Model\Estoque;
+use Estoque\Model\ItemEntrada;
 use Estoque\Form\EntradaForm;
 use Auth\Model\Auth;
 
@@ -16,6 +18,7 @@ use Auth\Model\Auth;
  */
 class EntradaController extends AbstractActionController {
 
+    /** @var EntradaTable */
     private $table;
 
     public function __construct(EntradaTable $table) {
@@ -148,6 +151,86 @@ class EntradaController extends AbstractActionController {
         $viewData = ['id' => $id, 'form' => $form];
 
         return $viewData;
+    }
+
+    public function concluiAction() {
+        if(!Auth::check()) {
+            return $this->redirect()->toRoute('auth');
+        }
+
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('entrada');
+        }
+
+        /* @var $oEntrada Entrada */
+        $oEntrada = $this->table->getEntrada($id);
+
+        if(!$oEntrada->isPermitidoManutencao()) {
+            return $this->redirect()->toRoute('entrada');
+        }
+
+        /* @var $aItens ItemEntrada[] */
+        $aItens = $this->getItensByEntrada($oEntrada);
+        $this->table->getAdapter()->getDriver()->getConnection()->beginTransaction();
+
+        foreach ($aItens as $oItemEntrada) {
+            /* @var $oEstoqueProduto Estoque */
+            $oEstoqueProduto = $this->atualizaEstoqueByItemEntrada($oItemEntrada);
+            $oItemEntrada->idestoque = $oEstoqueProduto->id;
+            $this->salvaItemEntrada($oItemEntrada);
+        }
+
+        $oEntrada->situacao = Entrada::SITUACAO_CONCLUIDA;
+        $this->table->saveEntrada($oEntrada);
+
+        $this->table->getAdapter()->getDriver()->getConnection()->commit();
+
+        return $this->redirect()->toRoute("entrada");
+    }
+
+    private function getItensByEntrada(Entrada $oEntrada) {
+        $itemEntradaTable = new \Estoque\Model\ItemEntradaTable(\Estoque\Module::newTableGatewayItemEntrada($this->table->getAdapter()));
+        return $itemEntradaTable->allByEntrada($oEntrada->id);
+    }
+
+    private function salvaItemEntrada(ItemEntrada $itemEntrada) {
+        $itemEntradaTable = new \Estoque\Model\ItemEntradaTable(\Estoque\Module::newTableGatewayItemEntrada($this->table->getAdapter()));
+        $itemEntradaTable->saveItemEntrada($itemEntrada);
+    }
+
+    private function atualizaEstoqueByItemEntrada(ItemEntrada $oItemEntrada) {
+        /* @var $oEstoqueProduto Estoque */
+        $oEstoqueProduto = $this->getEstoqueByProduto($oItemEntrada->produto());
+
+        if($oEstoqueProduto) {
+            $oEstoqueProduto->addQuantidade($oItemEntrada->quantidade);
+            $this->salvaEstoque($oEstoqueProduto);
+            return $oEstoqueProduto;
+        }
+
+        return $this->criaEstoqueNovoByItemEntrada($oItemEntrada);
+    }
+
+    private function getEstoqueByProduto(\Produto\Model\Produto $oProduto) {
+        $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->table->getAdapter()));
+        $oEstoque     = $estoqueTable->firstEstoqueByProduto($oProduto->id);
+        return $oEstoque;
+    }
+
+    private function criaEstoqueNovoByItemEntrada(ItemEntrada $oItemEntrada) {
+        $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->table->getAdapter()));
+        $estoque = new Estoque();
+        $estoque->quantidade = $oItemEntrada->quantidade;
+        $estoque->idproduto  = $oItemEntrada->idproduto;
+        $estoqueTable->saveEstoque($estoque);
+        return $estoque;
+    }
+
+    private function salvaEstoque(Estoque $estoque) {
+        $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->table->getAdapter()));
+        $estoqueTable->saveEstoque($estoque);
+        return $estoque;
     }
 
 }
