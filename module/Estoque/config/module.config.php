@@ -21,6 +21,20 @@ return [
                     ],
                 ],
             ],
+            'saida' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/saida[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\SaidaController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'item-entrada' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -36,12 +50,28 @@ return [
                     ],
                 ],
             ],
+            'item-saida' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/saida[/:idsaida]/item-saida[/:action[/:id]]',
+                    'constraints' => [
+                        'action'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'idsaida' => '[0-9]+',
+                        'id'      => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ItemSaidaController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
 
     'view_manager' => [
         'template_path_stack' => [
             'entrada'      => __DIR__ . '/../view',
+            'saida'        => __DIR__ . '/../view',
             'item-entrada' => __DIR__ . '/../view',
         ],
     ]

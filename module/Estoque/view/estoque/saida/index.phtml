@@ -1,0 +1,48 @@
+<?php
+
+$title = 'Listagem de Saidas';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+    <a class="btn-sm btn-primary" href="<?= $this->url('saida', ['action' => 'add']) ?>">Incluir</a>
+</p>
+
+<div class="table-responsive table-responsive-sm">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 80px;">Código</th>
+                <th scope="col" style="width: 100px;">Data</th>
+                <th scope="col" style="width: 100px;">Hora</th>
+                <th scope="col">Pessoa</th>
+                <th scope="col" style="width: 150px;">Situação</th>
+                <th scope="col" style="width: 100px;text-align: right">Valor Total</th>
+                <th scope="col" style="width: 50px;text-align: right">Ações</th>
+            </tr>
+        </thead>
+    <?php foreach ($saidas as /* @var $saida Estoque\Model\Saida */ $saida) : ?>
+        <tr>
+            <td><?= $this->escapeHtml($saida->id) ?></td>
+            <td><?= $this->escapeHtml(date_format(date_create($saida->data), 'd/m/Y')) ?></td>
+            <td><?= $this->escapeHtml($saida->hora) ?></td>
+            <td><?= $this->escapeHtml($saida->pessoa()->nome) ?></td>
+            <td><?= $this->escapeHtml($saida->getDestricaoSituacao()) ?></td>
+            <td style="text-align: right"><?= $this->escapeHtml(number_format($saida->getValorTotal(), 2, ',', '.')) ?></td>
+            <td style="text-align: right">
+                <div class="btn-group btn-group-vertical btn-group-sm" role="group">
+                    <button id="btnGroupAcoes" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupAcoes" style="padding: 0px; min-width:60px;">
+                        <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('saida', ['action' => 'edit', 'id' => $saida->id]) ?>">Alterar</a>
+                        <a class="btn-sm btn-danger" style="margin: 2px;" href="<?= $this->url('saida', ['action' => 'delete', 'id' => $saida->id]) ?>">Excluir</a>
+                        <a class="btn-sm btn-primary" style="margin: 2px; padding-left: 15px;padding-right: 15px" href="<?= $this->url('item-saida', ['action' => 'index', 'idsaida' => $saida->id]) ?>">Itens</a>
+                        <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('saida', ['action' => 'conclui', 'id' => $saida->id]) ?>">Conclui</a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+</div>

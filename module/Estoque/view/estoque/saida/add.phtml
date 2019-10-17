@@ -1,0 +1,66 @@
+<?php
+
+$title = 'Adicionar nova saida';
+$this->headTitle($title);
+?>
+<h2><?= $this->escapeHtml($title) ?></h2>
+<?php
+
+/* @var $form \Estoque\Form\SaidaForm */
+$form->setAttribute('action', $this->url('saida', ['action' => 'add']));
+$form->prepare();
+
+$idForm     = $form->get('id');
+$data       = $form->get('data');
+$hora       = $form->get('hora');
+$idPessoa   = $form->get('idpessoa');
+$observacao = $form->get('observacao');
+$submit     = $form->get('submit');
+
+echo $this->form()->openTag($form);
+
+?>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $data->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formDate($data) ?>
+    </div>
+    <?= $this->formElementErrors()->render($data, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $hora->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formTime($hora) ?>
+    </div>
+    <?= $this->formElementErrors()->render($hora, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $idPessoa->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($idPessoa) ?>
+    </div>
+    <?= $this->formElementErrors()->render($idPessoa, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $observacao->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formElement($observacao) ?>
+    </div>
+    <?= $this->formElementErrors()->render($observacao, ['class' => 'help-block']) ?>
+</div>
+
+<div class="btn-group-sm">
+
+<?php
+echo $this->formSubmit($submit);
+?>
+    <a href="<?= $this->url('saida', ['action' => 'index']) ?>" class="btn btn-sm btn-warning">Cancelar</a>
+
+</div>
+
+<?php
+echo $this->form()->closeTag();
