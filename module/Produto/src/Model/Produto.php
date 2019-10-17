@@ -24,6 +24,8 @@ class Produto implements InputFilterAwareInterface {
     public $categoria;
     public $descricao;
 
+    private $qtdeTotalEstoque;
+
     const UNIDADE           = 1,
           UNIDADE_LITRO     = 2,
           UNIDADE_KILOGRAMA = 3,
@@ -146,6 +148,14 @@ class Produto implements InputFilterAwareInterface {
             '%s does not allow injection of an alternate input filter',
             __CLASS__
         ));
+    }
+
+    public function setQtdeTotalEstoque($qtdeTotalEstoque) {
+        $this->qtdeTotalEstoque = $qtdeTotalEstoque;
+    }
+
+    public function getQtdeTotalEstoque() {
+        return $this->qtdeTotalEstoque;
     }
 
 }

@@ -26,7 +26,7 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($produto->nome) ?></td>
             <td><?= $this->escapeHtml($produto->getDestricaoUnidade()) ?></td>
             <td><?= $this->escapeHtml($produto->getDestricaoCategoria()) ?></td>
-            <td style="text-align: right" ><?= $this->escapeHtml(number_format(0, 2, ',', '.')) ?></td>
+            <td style="text-align: right" ><?= $this->escapeHtml(number_format($produto->getQtdeTotalEstoque(), 2, ',', '.')) ?></td>
             <td style="text-align: right" >
                 <a class="btn-sm btn-primary" href="<?= $this->url('produto', ['action' => 'edit', 'id' => $produto->id]) ?>">Alterar</a>
                 <a class="btn-sm btn-danger" href="<?= $this->url('produto', ['action' => 'delete', 'id' => $produto->id]) ?>">Excluir</a>

@@ -35,7 +35,12 @@ class EstoqueTable {
         return $row;
     }
 
-    public function firstEstoqueByProduto($idProduro) {
+    /**
+     * @param int $idProduro
+     *
+     * @return Estoque
+     */
+    public function firstEstoqueByProduto(int $idProduro) {
         $rowset = $this->tableGateway->select(['idproduto' => $idProduro]);
         $row = $rowset->current();
         return $row;
