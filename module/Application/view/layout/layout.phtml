@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav navbar-left">
                         <?php if(Auth\Model\Auth::check()) {?>
                         <li class="nav-item dropdown">
                             <a id="navbarCadastro" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,6 +49,17 @@
                                 <a class="dropdown-item btn btn-sm btn-light" href="<?= $this->url('pessoa') ?>">Pessoa</a>
                                 <a class="dropdown-item btn btn-sm btn-light" href="<?= $this->url('fornecedor') ?>">Fornecedor</a>
                                 <a class="dropdown-item btn btn-sm btn-light" href="<?= $this->url('produto') ?>">Produto</a>
+                            </div>
+
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="navbarGerenciar" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Gerenciar<span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarGerenciar">
+                                <a class="dropdown-item btn btn-sm btn-light" href="<?= $this->url('entrada') ?>">Entradas</a>
                             </div>
                         </li>
                         <?php } ?>

@@ -33,7 +33,8 @@
             "Auth\\"       : "module/Auth/src/",
             "Pessoa\\"     : "module/Pessoa/src/",
             "Fornecedor\\" : "module/Fornecedor/src/",
-            "Produto\\"    : "module/Produto/src/"
+            "Produto\\"    : "module/Produto/src/",
+            "Estoque\\"    : "module/Estoque/src/"
         }
     },
     "autoload-dev": {

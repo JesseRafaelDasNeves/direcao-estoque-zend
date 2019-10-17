@@ -23,4 +23,5 @@ return [
     'Pessoa',
     'Fornecedor',
     'Produto',
+    'Estoque',
 ];

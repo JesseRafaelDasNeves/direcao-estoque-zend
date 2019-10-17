@@ -1,6 +1,6 @@
 <?php
 
-namespace Fornecedor;
+namespace Estoque;
 
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
@@ -23,13 +23,13 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
     public function getServiceConfig() {
         return [
             'factories' => [
-                Model\FornecedorTable::class => function($container) {
-                    $tableGateway = $container->get(Model\FornecedorTableGateway::class);
-                    return new Model\FornecedorTable($tableGateway);
+                Model\EntradaTable::class => function($container) {
+                    $tableGateway = $container->get(Model\EntradaTableGateway::class);
+                    return new Model\EntradaTable($tableGateway);
                 },
-                Model\FornecedorTableGateway::class => function ($container) {
+                Model\EntradaTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
-                    return Module::newTableGatewayFornecedor($dbAdapter);
+                    return Module::newTableGatewayEntrada($dbAdapter);
                 },
             ],
         ];
@@ -38,19 +38,19 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
     public function getControllerConfig() {
         return [
             'factories' => [
-                Controller\FornecedorController::class => function($container) {
-                    return new Controller\FornecedorController(
-                        $container->get(Model\FornecedorTable::class)
+                Controller\EntradaController::class => function($container) {
+                    return new Controller\EntradaController(
+                        $container->get(Model\EntradaTable::class)
                     );
                 },
             ],
         ];
     }
 
-    public static function newTableGatewayFornecedor(AdapterInterface $dbAdapter) {
-        $resultSetPrototype = new Model\FornecedorResultSet($dbAdapter);
-        $resultSetPrototype->setArrayObjectPrototype(new Model\Fornecedor());
-        return new TableGateway('fornecedores', $dbAdapter, null, $resultSetPrototype);
+    public static function newTableGatewayEntrada(AdapterInterface $dbAdapter) {
+        $resultSetPrototype = new Model\EntradaResultSet($dbAdapter);
+        $resultSetPrototype->setArrayObjectPrototype(new Model\Entrada());
+        return new TableGateway('entradas', $dbAdapter, null, $resultSetPrototype);
     }
 
 }
