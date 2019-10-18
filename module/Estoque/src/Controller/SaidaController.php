@@ -173,19 +173,29 @@ class SaidaController extends AbstractActionController {
         /* @var $aItens ItemSaida[] */
         $aItens = $this->getItensBySaida($oSaida);
         $this->table->getAdapter()->getDriver()->getConnection()->beginTransaction();
+        $ok = true;
 
         foreach ($aItens as $oItemSaida) {
             /* @var $oEstoqueProduto Estoque */
             $oEstoqueProduto = $this->atualizaEstoqueByItemSaida($oItemSaida);
+
+            if(!$oEstoqueProduto) {
+                $ok = false;
+                break;
+            }
+
             $oItemSaida->idestoque = $oEstoqueProduto->id;
             $this->salvaItemSaida($oItemSaida);
         }
 
+        if(!$ok) {
+            $this->table->getAdapter()->getDriver()->getConnection()->rollback();
+            return $this->redirect()->toRoute("saida");
+        }
+
         $oSaida->situacao = Saida::SITUACAO_CONCLUIDA;
         $this->table->saveSaida($oSaida);
-
         $this->table->getAdapter()->getDriver()->getConnection()->commit();
-
         return $this->redirect()->toRoute("saida");
     }
 
@@ -203,28 +213,19 @@ class SaidaController extends AbstractActionController {
         /* @var $oEstoqueProduto Estoque */
         $oEstoqueProduto = $this->getEstoqueByProduto($oItemSaida->produto());
 
-        if($oEstoqueProduto) {
-            $oEstoqueProduto->addQuantidade($oItemSaida->quantidade);
+        if($oEstoqueProduto && $oEstoqueProduto->quantidade >=  $oItemSaida->quantidade) {
+            $oEstoqueProduto->retiraQuantidade($oItemSaida->quantidade);
             $this->salvaEstoque($oEstoqueProduto);
             return $oEstoqueProduto;
         }
 
-        return $this->criaEstoqueNovoByItemSaida($oItemSaida);
+        return false;
     }
 
     private function getEstoqueByProduto(\Produto\Model\Produto $oProduto) {
         $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->table->getAdapter()));
         $oEstoque     = $estoqueTable->firstEstoqueByProduto($oProduto->id);
         return $oEstoque;
-    }
-
-    private function criaEstoqueNovoByItemSaida(ItemSaida $oItemSaida) {
-        $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->table->getAdapter()));
-        $estoque = new Estoque();
-        $estoque->quantidade = $oItemSaida->quantidade;
-        $estoque->idproduto  = $oItemSaida->idproduto;
-        $estoqueTable->saveEstoque($estoque);
-        return $estoque;
     }
 
     private function salvaEstoque(Estoque $estoque) {

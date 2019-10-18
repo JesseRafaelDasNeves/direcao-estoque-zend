@@ -65,6 +65,20 @@ return [
                     ],
                 ],
             ],
+            'estoque-produto' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/estoque-produto[/:action[/:idproduto]]',
+                    'constraints' => [
+                        'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'idproduto' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\EstoqueController::class,
+                        'action'     => 'qtdeestoqueproduto',
+                    ],
+                ],
+            ],
         ],
     ],
 
@@ -73,6 +87,7 @@ return [
             'entrada'      => __DIR__ . '/../view',
             'saida'        => __DIR__ . '/../view',
             'item-entrada' => __DIR__ . '/../view',
+            'item-saida'   => __DIR__ . '/../view',
         ],
     ]
 ];

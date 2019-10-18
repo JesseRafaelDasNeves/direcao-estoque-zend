@@ -49,6 +49,24 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
                     $dbAdapter = $container->get(AdapterInterface::class);
                     return Module::newTableGatewaySaida($dbAdapter);
                 },
+
+                Model\ItemSaidaTable::class => function($container) {
+                    $tableGateway = $container->get(Model\ItemSaidaTableGateway::class);
+                    return new Model\ItemSaidaTable($tableGateway);
+                },
+                Model\ItemSaidaTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    return Module::newTableGatewayItemSaida($dbAdapter);
+                },
+
+                Model\EstoqueTable::class => function($container) {
+                    $tableGateway = $container->get(Model\EstoqueTableGateway::class);
+                    return new Model\EstoqueTable($tableGateway);
+                },
+                Model\EstoqueTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    return Module::newTableGatewayEstoque($dbAdapter);
+                },
             ],
         ];
     }
@@ -71,6 +89,16 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
                         $container->get(Model\ItemEntradaTable::class)
                     );
                 },
+                Controller\ItemSaidaController::class => function($container) {
+                    return new Controller\ItemSaidaController(
+                        $container->get(Model\ItemSaidaTable::class)
+                    );
+                },
+                Controller\EstoqueController::class => function($container) {
+                    return new Controller\EstoqueController(
+                        $container->get(Model\EstoqueTable::class)
+                    );
+                },
             ],
         ];
     }
@@ -91,6 +119,12 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         $resultSetPrototype = $carregaFilhos ? new Model\ItemEntradaResultSet($dbAdapter) : new ResultSet();
         $resultSetPrototype->setArrayObjectPrototype(new Model\ItemEntrada());
         return new TableGateway('itensentrada', $dbAdapter, null, $resultSetPrototype);
+    }
+
+    public static function newTableGatewayItemSaida(AdapterInterface $dbAdapter, $carregaFilhos = true) {
+        $resultSetPrototype = $carregaFilhos ? new Model\ItemSaidaResultSet($dbAdapter) : new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new Model\ItemSaida());
+        return new TableGateway('itens_saida', $dbAdapter, null, $resultSetPrototype);
     }
 
     public static function newTableGatewayEstoque(AdapterInterface $dbAdapter) {

@@ -1,0 +1,118 @@
+<?php
+
+$title = "Adicionar novo item na saida $idSaida";
+$this->headTitle($title);
+?>
+<h2><?= $this->escapeHtml($title) ?></h2>
+<?php
+
+/* @var $form \Estoque\Form\ItemSaidaForm */
+$form->setAttribute('action', $this->url('item-saida', ['action' => 'add', 'idsaida' => $idSaida]));
+$form->prepare();
+
+$idForm        = $form->get('id');
+$idSaidaForm = $form->get('idsaida');
+$idProduto     = $form->get('idproduto');
+$quantidade    = $form->get('quantidade');
+$qtdeAtualEst  = $form->get('qtde_atual_estoque');
+$vlrUnit       = $form->get('valorunitario');
+$vlrTotal      = $form->get('valortotal');
+$submit        = $form->get('submit');
+
+echo $this->form()->openTag($form);
+
+?>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $idProduto->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formSelect($idProduto) ?>
+    </div>
+    <?= $this->formElementErrors()->render($idProduto, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $qtdeAtualEst->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formNumber($qtdeAtualEst) ?>
+    </div>
+    <?= $this->formElementErrors()->render($qtdeAtualEst, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $quantidade->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formNumber($quantidade) ?>
+    </div>
+    <?= $this->formElementErrors()->render($quantidade, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $vlrUnit->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formNumber($vlrUnit) ?>
+    </div>
+    <?= $this->formElementErrors()->render($vlrUnit, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label"><?= $vlrTotal->getLabel() ?></label>
+    <div class="col-sm-10">
+        <?= $this->formNumber($vlrTotal) ?>
+    </div>
+    <?= $this->formElementErrors()->render($vlrTotal, ['class' => 'help-block']) ?>
+</div>
+
+<div class="btn-group-sm">
+
+<?php
+echo $this->formSubmit($submit);
+?>
+    <a href="<?= $this->url('item-saida', ['action' => 'index', 'idsaida' => $idSaida]) ?>" class="btn btn-sm btn-warning">Cancelar</a>
+
+</div>
+
+<?php
+echo $this->form()->closeTag();
+?>
+<script>
+
+    function preenchido(valor) {
+        return (valor != '') && (valor != null);
+    }
+
+    function calculaValorTotalItemSaida() {
+        let oCampoValorTotal = $('#valortotal'),
+            oCampoValorUnit  = $('#valorunitario'),
+            oCampoQuantidade = $('#quantidade');
+
+        if(preenchido(oCampoQuantidade.val()) && preenchido(oCampoValorUnit.val())) {
+            fQuantidade = parseFloat(oCampoQuantidade.val());
+            fVlrUnit    = parseFloat(oCampoValorUnit.val());
+            oCampoValorTotal.val(fQuantidade * fVlrUnit);
+        }
+    }
+
+    function onChangeCampoQuantidadeItemSaida() {
+        calculaValorTotalItemSaida();
+    }
+
+    function onChangeCampoValorUnitarioItemSaida() {
+        calculaValorTotalItemSaida();
+    }
+
+    function onChangeCampoProdutoItemSaida() {
+        let idProduto = parseFloat($('#idproduto').val());
+
+        if(idProduto > 0) {
+            $.get('/estoque-produto/qtdeestoqueproduto/' + idProduto, function(iRetornoQtdeEstoque) {
+                $('#qtde_atual_estoque').val(iRetornoQtdeEstoque);
+                $('#quantidade').attr('max', iRetornoQtdeEstoque);
+            });
+            return;
+        }
+
+        $('#qtde_atual_estoque').val(null);
+    }
+
+</script>

@@ -24,7 +24,7 @@ class SaidaResultSet extends ResultSet {
     public function current() {
         $saida =  parent::current();
         $this->loadPessoa($saida);
-        //$this->loadSomaValorTotalItensBySaida($saida);
+        $this->loadSomaValorTotalItensBySaida($saida);
         return $saida;
     }
 
