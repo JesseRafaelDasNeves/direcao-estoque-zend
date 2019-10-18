@@ -20,7 +20,7 @@ $this->headTitle($title);
             <th scope="col" style="width: 100px; text-align: right">Quantidade</th>
             <th scope="col" style="width: 100px; text-align: right">Vlr. Unitário</th>
             <th scope="col" style="width: 100px; text-align: right">Vlt. Total</th>
-            <th scope="col" style="width: 50px;">Ações</th>
+            <th scope="col" style="width: 100px; text-align: center">Ações</th>
         </thead>
     <?php foreach ($itensEntrada as /* @var $itemEntrada Estoque\Model\ItemEntrada */ $itemEntrada) : ?>
         <tr>
@@ -33,14 +33,15 @@ $this->headTitle($title);
             <td style="text-align: right">
                 <?php if($itemEntrada->entrada()->situacao != Estoque\Model\Entrada::SITUACAO_CONCLUIDA) : ?>
 
-                <div class="btn-group btn-group-vertical btn-group-sm" role="group">
-                    <button id="btnGroupAcoes" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <a  title="Alterar" class="btn-sm btn-primary" style="margin: 1px;"
+                    href="<?= $this->url('item-entrada', ['action' => 'edit', 'identrada' => $itemEntrada->identrada, 'id' => $itemEntrada->id]) ?>">
+                    <img src="/open-iconic/svg/pencil.svg" alt="Alterar">
+                </a>
 
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupAcoes" style="padding: 0px; min-width:60px;">
-                        <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('item-entrada', ['action' => 'edit', 'identrada' => $itemEntrada->identrada, 'id' => $itemEntrada->id]) ?>">Alterar</a>
-                        <a class="btn-sm btn-danger" style="margin: 2px;" href="<?= $this->url('item-entrada', ['action' => 'delete', 'identrada' => $itemEntrada->identrada, 'id' => $itemEntrada->id]) ?>">Excluir</a>
-                    </div>
-                </div>
+                <a  title="Excluir" class="btn-sm btn-danger" style="margin: 1px;"
+                    href="<?= $this->url('item-entrada', ['action' => 'delete', 'identrada' => $itemEntrada->identrada, 'id' => $itemEntrada->id]) ?>">
+                    <img src="/open-iconic/svg/trash.svg" alt="Excluir">
+                </a>
 
                 <?php endif; ?>
             </td>

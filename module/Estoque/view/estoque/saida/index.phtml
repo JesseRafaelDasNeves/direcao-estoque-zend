@@ -18,7 +18,7 @@ $this->headTitle($title);
                 <th scope="col">Pessoa</th>
                 <th scope="col" style="width: 150px;">Situação</th>
                 <th scope="col" style="width: 100px;text-align: right">Valor Total</th>
-                <th scope="col" style="width: 50px;text-align: right">Ações</th>
+                <th scope="col" style="width: 160px;text-align: center">Ações</th>
             </tr>
         </thead>
     <?php foreach ($saidas as /* @var $saida Estoque\Model\Saida */ $saida) : ?>
@@ -30,16 +30,23 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($saida->getDestricaoSituacao()) ?></td>
             <td style="text-align: right"><?= $this->escapeHtml(number_format($saida->getValorTotal(), 2, ',', '.')) ?></td>
             <td style="text-align: right">
-                <div class="btn-group btn-group-vertical btn-group-sm" role="group">
-                    <button id="btnGroupAcoes" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupAcoes" style="padding: 0px; min-width:60px;">
-                        <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('saida', ['action' => 'edit', 'id' => $saida->id]) ?>">Alterar</a>
-                        <a class="btn-sm btn-danger" style="margin: 2px;" href="<?= $this->url('saida', ['action' => 'delete', 'id' => $saida->id]) ?>">Excluir</a>
-                        <a class="btn-sm btn-primary" style="margin: 2px; padding-left: 15px;padding-right: 15px" href="<?= $this->url('item-saida', ['action' => 'index', 'idsaida' => $saida->id]) ?>">Itens</a>
-                        <a class="btn-sm btn-primary" style="margin: 2px;" href="<?= $this->url('saida', ['action' => 'conclui', 'id' => $saida->id]) ?>">Conclui</a>
-                    </div>
-                </div>
+                <a  title="Alterar" class="btn-sm btn-primary" style="margin: 1px;"
+                    href="<?= $this->url('saida', ['action' => 'edit', 'id' => $saida->id]) ?>">
+                    <img src="/open-iconic/svg/pencil.svg" alt="Alterar">
+                </a>
+                <a  title="Excluir" class="btn-sm btn-danger" style="margin: 1px;"
+                    href="<?= $this->url('saida', ['action' => 'delete', 'id' => $saida->id]) ?>">
+                    <img src="/open-iconic/svg/trash.svg" alt="Excluir">
+                </a>
+                <a  title="Itens" class="btn-sm btn-primary" style="margin: 1px;"
+                    href="<?= $this->url('item-saida', ['action' => 'index', 'idsaida' => $saida->id]) ?>">
+                    <img src="/open-iconic/svg/cart.svg" alt="Itens">
+                </a>
+                <a  title="Concluir" class="btn-sm btn-primary" style="margin: 1px;"
+                    href="<?= $this->url('saida', ['action' => 'conclui', 'id' => $saida->id]) ?>">
+                    <img src="/open-iconic/svg/check.svg" alt="Concluir">
+                </a>
 
             </td>
         </tr>
