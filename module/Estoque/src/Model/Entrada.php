@@ -161,4 +161,8 @@ class Entrada implements InputFilterAwareInterface {
         return $this->situacao == Entrada::SITUACAO_EM_ELABORACAO;
     }
 
+    public function dataFormatada() {
+        return date_format(date_create($this->data), 'd/m/Y');
+    }
+
 }

@@ -26,7 +26,7 @@ class ProdutoResultSet extends ResultSet {
     }
 
     private function loadQuantidadeTotalEstoque(Produto $produto) {
-        $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->DbAdapter));
+        $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->DbAdapter, false));
         $estoque      = $estoqueTable->firstEstoqueByProduto($produto->id);
 
         if($estoque) {

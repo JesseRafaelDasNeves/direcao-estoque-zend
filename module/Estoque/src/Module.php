@@ -127,8 +127,8 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         return new TableGateway('itens_saida', $dbAdapter, null, $resultSetPrototype);
     }
 
-    public static function newTableGatewayEstoque(AdapterInterface $dbAdapter) {
-        $resultSetPrototype = new ResultSet();
+    public static function newTableGatewayEstoque(AdapterInterface $dbAdapter, $carregaFilhos = true) {
+        $resultSetPrototype = $carregaFilhos ? new Model\EstoqueResultSet($dbAdapter) : new ResultSet();
         $resultSetPrototype->setArrayObjectPrototype(new Model\Estoque());
         return new TableGateway('estoques', $dbAdapter, null, $resultSetPrototype);
     }

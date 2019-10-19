@@ -25,6 +25,10 @@ class ItemEntradaTable {
         return $this->tableGateway->select(['identrada' => $idEntrada]);
     }
 
+    public function allByEstoque($idEstoque) {
+        return $this->tableGateway->select(['idestoque' => $idEstoque]);
+    }
+
     public function getItemEntrada($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(['id' => $id]);

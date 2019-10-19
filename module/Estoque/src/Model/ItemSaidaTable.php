@@ -25,6 +25,10 @@ class ItemSaidaTable {
         return $this->tableGateway->select(['idsaida' => $idSaida]);
     }
 
+    public function allByEstoque($idEstoque) {
+        return $this->tableGateway->select(['idestoque' => $idEstoque]);
+    }
+
     public function getItemSaida($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(['id' => $id]);

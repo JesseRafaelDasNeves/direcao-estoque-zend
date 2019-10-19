@@ -79,6 +79,16 @@ return [
                     ],
                 ],
             ],
+            'movimentacoes-estoque' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/estoque/movimentacoes',
+                    'defaults' => [
+                        'controller' => Controller\EstoqueController::class,
+                        'action'     => 'movimentacoes',
+                    ],
+                ],
+            ],
         ],
     ],
 

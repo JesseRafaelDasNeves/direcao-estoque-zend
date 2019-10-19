@@ -79,4 +79,64 @@ class EstoqueTable {
         return $this->tableGateway->getAdapter();
     }
 
+    public function getMovimentacoesByIdEstoque(int $id) {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter(), $this->tableGateway->getTable());
+        $selectEntrada = $sql->select();
+        $selectEntrada->columns([
+            'estoques.*',
+            'identrada',
+            'idsaida' => null,
+        ], false);
+        $selectEntrada->join(
+            'itensentrada',
+            'itensentrada.idestoque = estoques.id',
+            [
+                'qtde_movimentada' => 'quantidade',
+                'valorunitario',
+                'valortotal',
+            ],
+            $selectEntrada::JOIN_INNER
+        );
+        $selectEntrada->join(
+            'entradas',
+            'entradas.id = itensentrada.identrada',
+            [
+                'data',
+            ],
+            $selectEntrada::JOIN_INNER
+        );
+        $selectEntrada->where(['estoques.id' => $id]);
+
+        $selectSaida = $sql->select();
+        $selectSaida->columns([
+            'estoques.*',
+            'identrada' => null,
+            'idsaida',
+        ], false);
+        $selectSaida->join(
+            'itens_saida',
+            'itens_saida.idestoque = estoques.id' ,
+            [
+                'qtde_movimentada' => 'quantidade',
+                'valorunitario',
+                'valortotal',
+            ],
+            $selectSaida::JOIN_INNER
+        );
+        $selectSaida->join(
+            'saidas',
+            'saidas.id = itens_saida.idsaida',
+            [
+                'data',
+            ],
+            $selectSaida::JOIN_INNER
+        );
+        $selectSaida->where(['estoques.id' => $id]);
+
+        $selectEntrada->combine($selectSaida);
+        /* @var $adapter \Zend\Db\Adapter\Adapter */
+        $adapter = $this->getAdapter();
+        return $sql->prepareStatementForSqlObject($selectEntrada)->execute();
+    }
+
 }

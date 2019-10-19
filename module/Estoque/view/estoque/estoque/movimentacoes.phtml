@@ -1,0 +1,58 @@
+<?php
+
+$title = 'Movimentações de Estoque';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<div class="table-responsive table-responsive-sm">
+    <table class="table table-sm table-striped">
+        <thead style="background-color: #292d31; color: white">
+            <tr>
+                <th scope="col" style="width: 80px;">Estoque</th>
+                <th scope="col" colspan="4" style="width: 100px;">Produto</th>
+            </tr>
+        </thead>
+    <?php foreach ($estoques as $idEstoque => $dadosEstoque) :
+            $estoque       = $estoques[$idEstoque]['estoque'];
+            $movimentacoes = $estoques[$idEstoque]['movimentacoes'];
+    ?>
+        <tbody style="background-color: black; color: white;">
+            <tr>
+                <td style="background-color: #2e2d2d; color: white;">
+                    <?= $this->escapeHtml($estoque->id) ?>
+                </td>
+                <td colspan="4" style="background-color: #2e2d2d; color: white;">
+                    <?= $this->escapeHtml($estoque->produto()->nome) ?>
+                </td>
+            </tr>
+        </tbody>
+
+        <thead style="background-color: #777; color: white">
+            <tr>
+                <th scope="col" >Tipo</th>
+                <th scope="col" >Data</th>
+                <th scope="col" style="text-align: right;" >Vlr. Unitário</th>
+                <th scope="col" style="text-align: right;" >Vlr. Total</th>
+                <th scope="col" style="text-align: right;" >Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($movimentacoes as $movimentacao) : ?>
+            <tr>
+                <td><?= $this->escapeHtml(is_null($movimentacao['identrada']) ? 'Saída' : 'Entrada') ?></td>
+                <td><?= $this->escapeHtml(date_format(date_create($movimentacao['data']), 'd/m/Y')) ?></td>
+                <td style="text-align: right;" ><?= $this->escapeHtml(number_format($movimentacao['valorunitario'], 2, ',', '.')) ?></td>
+                <td style="text-align: right;" ><?= $this->escapeHtml(number_format($movimentacao['valortotal'], 2, ',', '.')) ?></td>
+                <td style="text-align: right;" ><?= $this->escapeHtml(number_format($movimentacao['qtde_movimentada'], 2, ',', '.')) ?></td>
+            </tr>
+            <?php endforeach; ?>
+
+            <tr>
+                <td style="text-align: right;" colspan="4"><b>Qtde. Total Estoque:</b></td>
+                <td style="text-align: right;" ><b><?= $this->escapeHtml(number_format($estoque->quantidade, 2, ',', '.')) ?></b></td>
+            </tr>
+        </tbody>
+    <?php endforeach; ?>
+    </table>
+</div>

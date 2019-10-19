@@ -2,12 +2,17 @@
 
 namespace Estoque\Model;
 
+use Produto\Model\Produto;
+
 /**
  * Description of Estoque
  *
  * @author Jessé Rafael das Neves
  */
 class Estoque {
+
+    /** @var Produto */
+    private $Produto;
 
     public $id;
     public $quantidade;
@@ -25,6 +30,17 @@ class Estoque {
             'quantidade' => $this->quantidade,
             'idproduto'  => $this->idproduto,
         ];
+    }
+
+    public function setProduto(Produto $produto) {
+        $this->Produto = $produto;
+    }
+
+    public function produto(): Produto {
+        if(!isset($this->Produto)) {
+            $this->Produto = new Produto();
+        }
+        return $this->Produto;
     }
 
     public function addQuantidade(float $qtdeAdd) {
