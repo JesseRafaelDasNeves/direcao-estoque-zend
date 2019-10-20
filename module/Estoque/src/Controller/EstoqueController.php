@@ -37,18 +37,26 @@ class EstoqueController extends AbstractActionController {
         if(!Auth::check()) {
             return $this->redirect()->toRoute('auth');
         }
-
-        $estoques = [];
+        $estoques      = [];
+        $movimentacoes = [];
 
         foreach ($this->table->fetchAll() as $estoque) {
-            $estoques[$estoque->id]['estoque']  = $estoque;
-
-            foreach ($this->getMovimentacoesByEstoque($estoque) as $movimentacao) {
-                $estoques[$estoque->id]['movimentacoes'][] = $movimentacao;
-            }
+            $estoques[]                  = $estoque;
+            $movimentacoes[$estoque->id] = $this->getMovimentacoesByEstoque($estoque);
         }
 
-        $fnOrdena = function ($a, $b) {
+        return new ViewModel(['estoques' => $estoques, 'movimentacoes' => $movimentacoes]);
+    }
+
+    private function getMovimentacoesByEstoque(Estoque $oEstoque) {
+        $estoqueTable  = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->table->getAdapter()));
+        $movimentacoes = [];
+
+        foreach ($estoqueTable->getMovimentacoesByIdEstoque($oEstoque->id) as $movimentacao) {
+            $movimentacoes[] = $movimentacao;
+        }
+
+        usort($movimentacoes, function ($a, $b) {
             $dataA = (int) str_replace('-', '', $a['data']);
             $dataB = (int) str_replace('-', '', $b['data']);
 
@@ -56,20 +64,9 @@ class EstoqueController extends AbstractActionController {
                 return 0;
             }
             return ($dataA < $dataB) ? -1 : 1;
-        };
+        });
 
-        foreach ($estoques as $idEstoque => $dadosEstoque) {
-            $movimentacoes = $estoques[$idEstoque]['movimentacoes'];
-            usort($movimentacoes, $fnOrdena);
-            $estoques[$idEstoque]['movimentacoes'] = $movimentacoes;
-        }
-
-        return new ViewModel(['estoques' => $estoques]);
-    }
-
-    private function getMovimentacoesByEstoque(Estoque $oEstoque) {
-        $estoqueTable = new \Estoque\Model\EstoqueTable(\Estoque\Module::newTableGatewayEstoque($this->table->getAdapter()));
-        return $estoqueTable->getMovimentacoesByIdEstoque($oEstoque->id);
+        return $movimentacoes;
     }
 
 }

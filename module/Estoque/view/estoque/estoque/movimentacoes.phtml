@@ -3,7 +3,7 @@
 $title = 'Movimentações de Estoque';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
+<h3><?= $this->escapeHtml($title) ?></h3>
 
 <div class="table-responsive table-responsive-sm">
     <table class="table table-sm table-striped">
@@ -13,10 +13,7 @@ $this->headTitle($title);
                 <th scope="col" colspan="4" style="width: 100px;">Produto</th>
             </tr>
         </thead>
-    <?php foreach ($estoques as $idEstoque => $dadosEstoque) :
-            $estoque       = $estoques[$idEstoque]['estoque'];
-            $movimentacoes = $estoques[$idEstoque]['movimentacoes'];
-    ?>
+    <?php foreach ($estoques as $estoque) : ?>
         <tbody style="background-color: black; color: white;">
             <tr>
                 <td style="background-color: #2e2d2d; color: white;">
@@ -38,7 +35,7 @@ $this->headTitle($title);
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($movimentacoes as $movimentacao) : ?>
+            <?php foreach ($movimentacoes[$estoque->id] as $movimentacao) : ?>
             <tr>
                 <td><?= $this->escapeHtml(is_null($movimentacao['identrada']) ? 'Saída' : 'Entrada') ?></td>
                 <td><?= $this->escapeHtml(date_format(date_create($movimentacao['data']), 'd/m/Y')) ?></td>
