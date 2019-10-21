@@ -12,7 +12,7 @@ use Fornecedor\Model\FornecedorTable;
  *
  * @author Jessé Rafael das Neves
  */
-class EntradaResultSet extends ResultSet {
+class EntradaResultSet extends ResultSet  implements \Zend\Hydrator\HydrationInterface {
 
     private $DbAdapter;
 
@@ -23,8 +23,8 @@ class EntradaResultSet extends ResultSet {
 
     public function current() {
         $oEntrada =  parent::current();
-        $this->loadFornecedor($oEntrada);
-        $this->loadSomaValorTotalItensByEntrada($oEntrada);
+        /*$this->loadFornecedor($oEntrada);
+        $this->loadSomaValorTotalItensByEntrada($oEntrada);*/
         return $oEntrada;
     }
 
@@ -38,6 +38,10 @@ class EntradaResultSet extends ResultSet {
         $itemEntradaTable = new \Estoque\Model\ItemEntradaTable(\Estoque\Module::newTableGatewayItemEntrada($this->DbAdapter, false));
         $fValor = $itemEntradaTable->somaValorTotalByEntrada($oEntrada->id);
         $oEntrada->setValorTotal($fValor);
+    }
+
+    public function hydrate($data, $object) {
+
     }
 
 }

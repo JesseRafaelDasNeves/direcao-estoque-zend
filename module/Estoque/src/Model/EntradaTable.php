@@ -3,6 +3,8 @@
 namespace Estoque\Model;
 
 use Zend\Db\TableGateway\TableGatewayInterface;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 /**
  * Description of EntradaTable
@@ -18,11 +20,19 @@ class EntradaTable {
     }
 
     public function fetchAll() {
-        /*$sql = new \Zend\Db\Sql\Sql($this->getAdapter(), $this->tableGateway->getTable());
-        $select = $sql->select();
-        $select->order(['id asc']);
-        return $sql->prepareStatementForSqlObject($select)->execute();*/
         return $this->tableGateway->select();
+    }
+
+    public function fetchAllPaginator() {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter(), $this->tableGateway->getTable());
+        $select = $sql->select();
+        $select->order(['id desc']);
+
+        $resultSet = new \Zend\Db\ResultSet\HydratingResultSet(new \Zend\Hydrator\ReflectionHydrator(), new Entrada());
+        $adSelect  = new DbSelect($select, $this->getAdapter(), $resultSet);
+        $paginator = new Paginator($adSelect);
+        $paginator->setItemCountPerPage(10);
+        return $paginator;
     }
 
     public function getEntrada($id) {

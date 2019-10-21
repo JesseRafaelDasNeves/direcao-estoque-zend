@@ -34,6 +34,8 @@ class Entrada implements InputFilterAwareInterface {
     public $idfornecedor;
 
     private $valorTotal;
+    private $fornecedorPersistido = false;
+    private $vlrTotalPersistido   = false;
 
     public function exchangeArray(Array $data) {
         $this->id           = !empty($data['id'])           ? $data['id']           : null;
@@ -62,9 +64,17 @@ class Entrada implements InputFilterAwareInterface {
     }
 
     public function fornecedor(): Fornecedor {
+        if(!$this->fornecedorPersistido && !is_null($this->idfornecedor)) {
+
+            $oFornecedorTable = new \Fornecedor\Model\FornecedorTable(\Fornecedor\Module::newTableGatewayFornecedor(\Estoque\Module::getDbAdapter()));
+            $this->Fornecedor = $oFornecedorTable->getFornecedor($this->idfornecedor);
+            $this->fornecedorPersistido = true;
+        }
+
         if(!isset($this->Fornecedor)) {
             $this->Fornecedor = new Fornecedor();
         }
+
         return $this->Fornecedor;
     }
 
@@ -73,6 +83,12 @@ class Entrada implements InputFilterAwareInterface {
     }
 
     public function getValorTotal() {
+        if(!$this->vlrTotalPersistido && !is_null($this->id)) {
+            $itemEntradaTable = new \Estoque\Model\ItemEntradaTable(\Estoque\Module::newTableGatewayItemEntrada(\Estoque\Module::getDbAdapter(), false));
+            $this->valorTotal = $itemEntradaTable->somaValorTotalByEntrada($this->id);
+            $this->vlrTotalPersistido = true;
+        }
+
         return $this->valorTotal;
     }
 

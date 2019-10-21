@@ -39,6 +39,9 @@ class Fornecedor implements InputFilterAwareInterface {
     }
 
     public function pessoa(): Pessoa {
+        if(!isset($this->Pessoa)) {
+            $this->Pessoa = new Pessoa();
+        }
         return $this->Pessoa;
     }
 

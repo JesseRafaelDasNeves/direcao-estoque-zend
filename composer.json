@@ -25,7 +25,9 @@
         "zendframework/zend-mvc-i18n": "^1.1",
         "zendframework/zend-authentication": "^2.7",
         "zendframework/zend-crypt": "^3.3",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "zendframework/zend-paginator": "^2.8",
+        "zendframework/zend-hydrator": "^3.0"
     },
     "autoload": {
         "psr-4": {

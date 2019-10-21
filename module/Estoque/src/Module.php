@@ -16,8 +16,19 @@ use Zend\ModuleManager\Feature\ControllerProviderInterface;
  */
 class Module implements ConfigProviderInterface, ServiceProviderInterface, ControllerProviderInterface {
 
+    private static $DB_ADAPTER = null;
+
     public function getConfig() {
         return include __DIR__ . '/../config/module.config.php';
+    }
+
+    public static function getDbAdapter() {
+        return self::$DB_ADAPTER;
+    }
+
+    public function onBootstrap(\Zend\Mvc\MvcEvent $e) {
+        $application = $e->getApplication();
+        self::$DB_ADAPTER = $application->getServiceManager()->get(\Zend\Db\Adapter\AdapterInterface::class);
     }
 
     public function getServiceConfig() {

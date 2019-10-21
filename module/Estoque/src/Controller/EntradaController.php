@@ -49,7 +49,10 @@ class EntradaController extends AbstractActionController {
             return $this->redirect()->toRoute('auth');
         }
 
-        return new ViewModel(['entradas' => $this->table->fetchAll()]);
+        $paginator = $this->table->fetchAllPaginator();
+        $paginator->setCurrentPageNumber($this->params('page', 1));
+
+        return new ViewModel(['entradas' => $paginator]);
     }
 
     public function addAction() {

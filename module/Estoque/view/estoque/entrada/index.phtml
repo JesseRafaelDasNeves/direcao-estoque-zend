@@ -54,4 +54,42 @@ $this->headTitle($title);
         </tr>
     <?php endforeach; ?>
     </table>
+
 </div>
+
+<?php
+
+/* @var $entradas \Zend\Paginator\Paginator */
+$dataPage = $entradas->getPages();
+
+?>
+
+<nav aria-label="Paginação">
+  <ul class="pagination">
+
+    <?php if (isset($dataPage->previous)) : ?>
+        <li class="page-item"><a class="page-link" href="<?= $this->url('entrada-page', ['page' => $dataPage->previous]) ?>">Anterior</a></li>
+    <?php endif; ?>
+
+    <?php if (!isset($dataPage->pagesInRange[1])) : ?>
+        <li class="page-item"><a class="page-link" href="<?= $this->url('entrada-page', ['page' => 1]) ?>">1</a></li>
+        <li class="page-item disabled"><a class="page-link" tabindex="-1" href="">---</a></li>
+    <?php endif; ?>
+
+    <?php foreach ($dataPage->pagesInRange as $page) : ?>
+        <?php if ($dataPage->current != $page) : ?>
+        <li class="page-item"><a class="page-link" href="<?= $this->url('entrada-page', ['page' => $page]) ?>"><?= $page ?></a></li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
+    <?php if (!isset($dataPage->pagesInRange[$dataPage->pageCount])) : ?>
+        <li class="page-item disabled"><a class="page-link" tabindex="-1" href="">---</a></li>
+        <li class="page-item"><a class="page-link" href="<?= $this->url('entrada-page', ['page' => $dataPage->pageCount]) ?>"><?= $dataPage->pageCount ?></a></li>
+    <?php endif; ?>
+
+    <?php if (isset($dataPage->next)) : ?>
+        <li class="page-item"><a class="page-link" href="<?= $this->url('entrada-page', ['page' => $dataPage->next]) ?>">Próximo</a></li>
+    <?php endif; ?>
+
+  </ul>
+</nav>

@@ -21,6 +21,20 @@ return [
                     ],
                 ],
             ],
+            'entrada-page' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/entrada/page[/:page]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\EntradaController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'saida' => [
                 'type'    => Segment::class,
                 'options' => [
