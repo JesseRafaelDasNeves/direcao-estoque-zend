@@ -1,4 +1,3 @@
-<script type="text/javascript">
 (function(){(function(){function a(){if(void 0===b.dialogArguments)return navigator.cookieEnabled;document.cookie="__dTCookie=1";var a=-1!==document.cookie.indexOf("__dTCookie");document.cookie="__dTCookie=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";return a}if(window.dT_)window.console&&window.console.log("Duplicate agent injection detected, turning off redundant initConfig.");else{var b="undefined"!==typeof window?window:self;a()&&(window.dT_||(window.dT_={cfg:"app=d1891d2e17c3d65f|cors=1|featureHash=A2SVfqru|reportUrl=https://bf14233sir.bf.dynatrace.com/bf|rdnt=1|uxrgce=1|bp=2|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|lastModification=1572099787062|dtVersion=10177191024092634|tp=500,50,0,1|uxdcw=1500|featureHash=A2SVfqru|agentUri=https://js-cdn.dynatrace.com/jstag/16dcf18d41e/ruxitagent_A2SVfqru_10177191024092634.js|auto=|domain=|rid=RID_|rpid=|app=d1891d2e17c3d65f",
 iCE:a}))}})();}).call(this);
 
@@ -40,7 +39,3 @@ f=ob(y);f.auto=ha;f.legacy=ia}}}catch(Ca){}Ia(f);try{var W=f.ign;if(W&&(new RegE
 -1===p(G,"_complete")?1:2,N=G.lastIndexOf("/");for(sa=0;sa<ja&&-1!==N;sa++)G=G.substr(0,N),N=G.lastIndexOf("/");E=G;break a}}var Y=location.pathname;E=Y.substr(0,Y.lastIndexOf("/"))}Ka=E;U=l("agentname")||l("csu")||(0===h?"ruxitagentjs":"dtagent");"true"===K("dtUseDebugAgent")?0>U.indexOf("dbg")&&(U=l("debugName")||U+"dbg"):U=l("name")||U;if(!m("auto")&&!m("legacy")&&!Ib){var P=l("agentUri")||Ja(l("featureHash")),Q;if(!(Q=m("async")||"complete"===document.readyState)){var R=d.navigator.userAgent,
 S=R.indexOf("MSIE ");Q=0<S?9>=parseInt(R.substring(S+5,R.indexOf(".",S)),10):!1}Q?Aa(P,m("async"),void 0,void 0,"dtjsagent"):(document.write('<script id="dtjsagentdw" type="text/javascript" src="'+P+'">\x3c/script>'),document.getElementById("dtjsagentdw")||Aa(P,m("async"),void 0,void 0,"dtjsagent"))}var oa=d.location.href;0===h&&-1!==p(oa,"_DT_RENDERING_")&&(I().RMOD={conf:Gc,ignore:Hc,ID:"_DT_RENDERING_"},Ka&&Aa(Ja("R"),!0,void 0,void 0,"dtjsagent"));K(z)&&(f.cooO=!0);vc();if(0===h){var pa=!!qa(Ya);
 f.pVO=pa;Ba(Wa)}0===h&&J("hvt")&&(Gb=J("hvt"));za(xb,[1])}catch(Ca){return!1}return!0}(0)){try{delete d.dT_}catch(a){d.dT_=void 0}gb()&&d.console.log("JsAgent initCode initialization failed!")}}})();}).call(this);
-
-
-
-</script>
