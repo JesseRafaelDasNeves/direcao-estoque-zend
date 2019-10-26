@@ -4,8 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/direcao-estoque-zend/module/Estoque/src/Controller/EstoqueController.php</file>
-            <file>file:/C:/xampp/htdocs/direcao-estoque-zend/module/Estoque/src/Controller/EntradaController.php</file>
-            <file>file:/C:/xampp/htdocs/direcao-estoque-zend/module/Estoque/view/estoque/estoque/movimentacoes.phtml</file>
+            <file>file:/C:/xampp/htdocs/direcao-estoque-zend/module/Application/view/layout/layout.phtml</file>
         </group>
     </open-files>
 </project-private>
