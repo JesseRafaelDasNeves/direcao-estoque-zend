@@ -22,9 +22,9 @@ class EstoqueController extends AbstractActionController {
     }
 
     public function qtdeestoqueprodutoAction() {
-        /*if(!Auth::check()) {
-            return $this->redirect()->toRoute('auth');
-        }*/
+        if(!Auth::check()) {
+            return 0;
+        }
 
         $idProduro = $this->params()->fromRoute('idproduto', 0);
         $estoque  = $this->table->firstEstoqueByProduto($idProduro);
@@ -34,9 +34,9 @@ class EstoqueController extends AbstractActionController {
     }
 
     public function movimentacoesAction() {
-        if(!Auth::check()) {
+        /*if(!Auth::check()) {
             return $this->redirect()->toRoute('auth');
-        }
+        }*/
         $estoques      = [];
         $movimentacoes = [];
 
