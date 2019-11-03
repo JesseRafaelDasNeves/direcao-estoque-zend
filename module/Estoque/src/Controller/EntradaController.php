@@ -45,9 +45,9 @@ class EntradaController extends AbstractActionController {
     }
 
     public function indexAction() {
-        if(!Auth::check()) {
+        /*if(!Auth::check()) {
             return $this->redirect()->toRoute('auth');
-        }
+        }*/
 
         $paginator = $this->table->fetchAllPaginator();
         $paginator->setCurrentPageNumber($this->params('page', 1));
